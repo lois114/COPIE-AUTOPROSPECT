@@ -1,0 +1,67 @@
+<!--
+  Preview du HTML envoyé par /api/send.
+  Reproduit la sortie de buildHtmlEmail() dans api/_lib.js :
+    1. corps du mail (escape + \n -> <br>, \n\n -> paragraphe)
+    2. SIGNATURE_HTML
+    3. LEGAL_FOOTER_HTML (RGPD)
+
+  Double-clique pour ouvrir dans le navigateur. Pour itérer sur la
+  signature, modifie seulement le bloc <!-- SIGNATURE --> ci-dessous.
+-->
+<!DOCTYPE html>
+<html>
+<body style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#222;line-height:1.5;max-width:600px;margin:0;padding:0">
+
+<!-- BODY (corps généré par Groq, ici un exemple représentatif) -->
+<p style="margin:0 0 12px 0">Bonjour Julien,</p>
+<p style="margin:0 0 12px 0">J&#39;ai vu que vous développiez le padel dans votre région — bravo pour la dynamique de PADEL CLUB.</p>
+<p style="margin:0 0 12px 0">Je vous écris parce que notre solution d&#39;automatisation de prospection B2B pourrait vous intéresser pour développer votre acquisition de nouveaux pratiquants. Nous accompagnons déjà plusieurs clubs sur ce volet.</p>
+<p style="margin:0 0 12px 0">Auriez-vous 15 minutes cette semaine pour en échanger ?</p>
+<p style="margin:0 0 12px 0">Cordialement,</p>
+
+<!-- SIGNATURE -->
+<table cellpadding="0" cellspacing="0" border="0" style="margin:32px 0 0 0;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
+  <tr>
+    <td style="padding:0 20px 0 0;border-right:2px solid #d4d4d4;vertical-align:top;text-align:center">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Crect width='110' height='110' rx='8' fill='%23d4d4d4'/%3E%3C/svg%3E" alt="Photo" width="110" height="110" style="display:block;border-radius:8px;margin:0 auto">
+      <a href="https://example.com/" style="display:inline-block;margin-top:10px">
+        <img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-web.png" alt="Site" width="140" style="display:block;border:0;height:auto;max-width:140px">
+      </a>
+    </td>
+    <td style="padding:0 0 0 20px;vertical-align:top;font-size:13px;color:#333;line-height:1.5">
+      <div style="font-size:16px;font-weight:bold;color:#000;margin-bottom:2px">Julien MOREAU</div>
+      <div style="color:#666;margin-bottom:6px">Fondateur &amp; Président</div>
+      <div style="font-size:14px;font-weight:bold;color:#000;margin-bottom:10px">PADEL CLUB</div>
+
+      <div style="margin-bottom:2px">
+        <a href="mailto:contact@padel-club.example" style="color:#333;text-decoration:none">contact@padel-club.example</a>
+      </div>
+      <div style="margin-bottom:2px">
+        <a href="tel:+33612345678" style="color:#333;text-decoration:none">06 12 34 56 78</a>
+        &nbsp;·&nbsp;
+        <a href="tel:+33123456789" style="color:#333;text-decoration:none">01 23 45 67 89</a>
+      </div>
+      <div style="margin-bottom:2px;color:#666">10 rue du Sport, 75011 Paris</div>
+      <div style="margin-bottom:10px">
+        <a href="https://example.com/" style="color:#0066cc;text-decoration:none;font-weight:bold">padel-club.example</a>
+      </div>
+
+      <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+        <tr>
+          <td style="padding-right:8px"><a href="https://www.linkedin.com/in/exemple/"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-linkedin.png" alt="LinkedIn" width="24" height="24" style="display:block;border:0"></a></td>
+          <td style="padding-right:8px"><a href="https://www.instagram.com/exemple/"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-instagram.png" alt="Instagram" width="24" height="24" style="display:block;border:0"></a></td>
+          <td style="padding-right:8px"><a href="https://www.tiktok.com/@exemple"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-tiktok.png" alt="TikTok" width="24" height="24" style="display:block;border:0"></a></td>
+          <td><a href="https://www.facebook.com/exemple"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-facebook.png" alt="Facebook" width="24" height="24" style="display:block;border:0"></a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- LEGAL FOOTER (RGPD) -->
+<p style="margin:24px 0 0 0;color:#666;font-size:12px;line-height:1.5;border-top:1px solid #ddd;padding-top:12px">
+  Vos coordonnées professionnelles ont été obtenues via Apollo.io. Pour ne plus recevoir ce type d&#39;emails, répondez &quot;STOP&quot; — votre demande sera prise en compte immédiatement.
+</p>
+
+</body>
+</html>

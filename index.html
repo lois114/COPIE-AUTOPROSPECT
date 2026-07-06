@@ -1,0 +1,3534 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padel Prospect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0e0e0e;
+      --white: #f5f4f0;
+      --accent: #c8f04a;
+      --accent-dark: #a8cc30;
+      --gray-100: #1a1a1a;
+      --gray-200: #2a2a2a;
+      --gray-300: #3a3a3a;
+      --gray-400: #666;
+      --gray-500: #999;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --orange: #f39c12;
+      --blue: #3498db;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Syne', sans-serif;
+    }
+
+    /* LOGIN */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .login-overlay.hidden {
+      display: none;
+    }
+
+    .login-box {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .login-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .login-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .login-box p {
+      font-size: 14px;
+      color: var(--gray-400);
+    }
+
+    .login-box input {
+      background: var(--gray-200);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 12px 16px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+
+    .login-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .login-error {
+      font-size: 13px;
+      color: var(--red);
+      display: none;
+    }
+
+    .login-error.show {
+      display: block;
+    }
+
+    /* LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: var(--gray-100);
+      border-right: 1px solid var(--gray-200);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray-400);
+      margin-bottom: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--gray-500);
+      transition: all 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: var(--gray-200);
+      color: var(--white);
+    }
+
+    .nav-item.active {
+      background: var(--gray-200);
+      color: var(--white);
+    }
+
+    .nav-item .nav-icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .stats-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .stat-mini {
+      background: var(--gray-200);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat-mini .val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-mini .lbl {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+
+    /* MAIN */
+    .main {
+      padding: 2.5rem 3rem;
+      overflow-y: auto;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+
+    /* TEMPLATE KIND BADGE */
+    .kind-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 999px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .kind-badge.ai     { background: rgba(52,152,219,0.15); color: var(--blue); }
+    .kind-badge.static { background: rgba(46,204,113,0.15); color: var(--green); }
+
+    /* CREDITS GAUGE */
+    .credits-card {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+    }
+    .credits-title {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 4px;
+    }
+    .credit-pill {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 180px;
+    }
+    .credit-pill-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+    .credit-pill-head strong { color: var(--white); font-size: 14px; }
+    .credit-bar {
+      height: 6px;
+      background: var(--gray-300);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .credit-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .credit-bar-fill.warn { background: var(--orange); }
+    .credit-bar-fill.bad  { background: var(--red); }
+    .credit-bar-fill.over { background: repeating-linear-gradient(
+      45deg, var(--orange) 0 6px, var(--gray-300) 6px 12px); }
+
+    /* FORM */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group select option {
+      background: var(--gray-100);
+    }
+
+    .section-card {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gray-300);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gray-400);
+      background: var(--gray-200);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--red);
+      border: 1px solid var(--red);
+    }
+
+    .btn-danger:hover {
+      background: rgba(231, 76, 60, 0.1);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    /* ALERT */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .alert.show {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .alert-error {
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      color: #f19696;
+    }
+
+    .alert-success {
+      background: rgba(46, 204, 113, 0.15);
+      border: 1px solid rgba(46, 204, 113, 0.3);
+      color: #7debb7;
+    }
+
+    .alert-info {
+      background: rgba(52, 152, 219, 0.15);
+      border: 1px solid rgba(52, 152, 219, 0.3);
+      color: #82c7f0;
+    }
+
+    /* PROGRESS */
+    .progress-bar-wrap {
+      background: var(--gray-300);
+      border-radius: 99px;
+      height: 4px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width 0.3s;
+    }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--gray-200);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead tr {
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-100);
+    }
+
+    th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .td-name {
+      font-weight: 500;
+    }
+
+    .td-email {
+      color: var(--blue);
+      font-size: 12px;
+    }
+
+    .td-company {
+      color: var(--gray-500);
+      font-size: 12px;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .badge-pending {
+      background: rgba(243, 156, 18, 0.15);
+      color: var(--orange);
+    }
+
+    .badge-pending .badge-dot {
+      background: var(--orange);
+    }
+
+    .badge-generating {
+      background: rgba(52, 152, 219, 0.15);
+      color: var(--blue);
+    }
+
+    .badge-generating .badge-dot {
+      background: var(--blue);
+      animation: pulse 1s infinite;
+    }
+
+    .badge-ready {
+      background: rgba(46, 204, 113, 0.15);
+      color: var(--green);
+    }
+
+    .badge-ready .badge-dot {
+      background: var(--green);
+    }
+
+    .badge-validated {
+      background: rgba(200, 240, 74, 0.15);
+      color: var(--accent);
+    }
+
+    .badge-validated .badge-dot {
+      background: var(--accent);
+    }
+
+    /* ARRONDISSEMENT CHIPS */
+    .arr-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .arr-toolbar button {
+      background: transparent;
+      border: 1px solid var(--gray-300);
+      color: var(--gray-500);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .arr-toolbar button:hover {
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .arr-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .arr-chip {
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      border: 1px solid var(--gray-300);
+      background: var(--gray-100);
+      color: var(--gray-500);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .arr-chip:hover {
+      border-color: var(--gray-400);
+      color: var(--white);
+    }
+
+    .arr-chip.active {
+      background: var(--accent);
+      color: var(--black);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* EXPORT DROPDOWN */
+    .export-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .export-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 10px;
+      padding: 4px;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 50;
+      min-width: 220px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .export-menu.open {
+      display: flex;
+    }
+
+    .export-menu button {
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 9px 12px;
+      color: var(--white);
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .export-menu button:hover {
+      background: var(--gray-300);
+    }
+
+    .export-menu .menu-count {
+      font-size: 11px;
+      color: var(--gray-400);
+    }
+
+    /* BULK SELECTION */
+    .bulk-bar {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      background: rgba(200, 240, 74, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    .bulk-bar.visible {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .bulk-bar .bulk-count {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .bulk-bar .bulk-spacer {
+      flex: 1;
+    }
+
+    .row-checkbox,
+    .header-checkbox {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .check-cell {
+      width: 32px;
+      text-align: center;
+    }
+
+    /* LIST BAR (prospects page) */
+    .list-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .list-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      border: 1px solid var(--gray-300);
+      background: var(--gray-100);
+      color: var(--gray-500);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .list-chip:hover {
+      border-color: var(--gray-400);
+      color: var(--white);
+    }
+
+    .list-chip.active {
+      background: var(--accent);
+      color: var(--black);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .list-chip .list-count {
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .list-chip .list-del,
+    .list-chip .list-rename {
+      font-size: 12px;
+      line-height: 1;
+      padding: 0 2px;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s;
+    }
+
+    .list-chip:hover .list-del,
+    .list-chip:hover .list-rename {
+      opacity: 0.6;
+    }
+
+    .list-chip .list-del:hover {
+      opacity: 1;
+      color: var(--red);
+    }
+
+    .list-chip .list-rename:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .list-chip.active .list-rename:hover,
+    .list-chip.active .list-del:hover {
+      color: var(--black);
+    }
+
+    .list-chip-add {
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      border: 1px dashed var(--gray-400);
+      background: transparent;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .list-chip-add:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .list-badges {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 3px;
+    }
+
+    .list-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-300);
+      color: var(--gray-500);
+    }
+
+    .list-badge .badge-remove {
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s;
+      font-size: 11px;
+      line-height: 1;
+      padding: 0 2px;
+    }
+
+    .list-badge:hover .badge-remove {
+      opacity: 0.7;
+    }
+
+    .list-badge .badge-remove:hover {
+      opacity: 1;
+      color: var(--red);
+    }
+
+    .list-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--gray-200);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .list-checkbox-row:hover {
+      background: var(--gray-300);
+    }
+
+    .list-checkbox-row input {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    /* ZONE MODE SELECTOR */
+    .zone-mode {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .zone-mode-btn {
+      padding: 8px 14px;
+      border-radius: 99px;
+      font-size: 12px;
+      border: 1px solid var(--gray-300);
+      background: var(--gray-100);
+      color: var(--gray-500);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      user-select: none;
+      font-weight: 500;
+    }
+
+    .zone-mode-btn:hover {
+      border-color: var(--gray-400);
+      color: var(--white);
+    }
+
+    .zone-mode-btn.active {
+      background: var(--accent);
+      color: var(--black);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .badge-sent {
+      background: rgba(46, 204, 113, 0.2);
+      color: var(--green);
+    }
+
+    .badge-sent .badge-dot {
+      background: var(--green);
+    }
+
+    .badge-error {
+      background: rgba(231, 76, 60, 0.15);
+      color: var(--red);
+    }
+
+    .badge-error .badge-dot {
+      background: var(--red);
+    }
+
+    .badge-delivered {
+      background: rgba(52, 152, 219, 0.18);
+      color: #3498db;
+    }
+
+    .badge-delivered .badge-dot {
+      background: #3498db;
+    }
+
+    .badge-opened {
+      background: rgba(155, 89, 182, 0.22);
+      color: #9b59b6;
+    }
+
+    .badge-opened .badge-dot {
+      background: #9b59b6;
+    }
+
+    .badge-clicked {
+      background: rgba(26, 188, 156, 0.22);
+      color: #1abc9c;
+    }
+
+    .badge-clicked .badge-dot {
+      background: #1abc9c;
+    }
+
+    .badge-bounced {
+      background: rgba(241, 196, 15, 0.22);
+      color: #d4a017;
+    }
+
+    .badge-bounced .badge-dot {
+      background: #d4a017;
+    }
+
+    .badge-spam {
+      background: rgba(192, 57, 43, 0.22);
+      color: #c0392b;
+    }
+
+    .badge-spam .badge-dot {
+      background: #c0392b;
+    }
+
+    .campaign-stats {
+      background: var(--gray-800, #1f2933);
+      border: 1px solid var(--gray-700, #2d3a45);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+    }
+
+    .campaign-stats-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-400, #94a3b8);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .campaign-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .campaign-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .cs-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .cs-num {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white, #f8fafc);
+      line-height: 1;
+    }
+
+    .cs-label {
+      font-size: 12px;
+      color: var(--gray-400, #94a3b8);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .cs-label small {
+      font-size: 11px;
+      color: var(--gray-500, #64748b);
+    }
+
+    .cs-warn .cs-num {
+      color: #d4a017;
+    }
+
+    .cs-bad .cs-num {
+      color: #c0392b;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.3
+      }
+    }
+
+    /* ACTIONS ROW */
+    .actions-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      width: 220px;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent);
+    }
+
+    /* Dropdown de filtre dans un en-tête de colonne (thème sombre, compact) */
+    .col-filter-select {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: none;
+      padding: 3px 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .col-filter-select:focus {
+      border-color: var(--accent);
+    }
+
+    .col-filter-select option {
+      background: var(--gray-100);
+      color: var(--white);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .modal-prospect-info {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 3px;
+    }
+
+    .modal textarea {
+      background: var(--gray-200);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      color: var(--white);
+      padding: 14px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.65;
+      resize: vertical;
+      min-height: 280px;
+      outline: none;
+    }
+
+    .modal textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-400);
+    }
+
+    .empty-state .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.1rem;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      font-size: 13px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* EXPORT PAGE */
+    .export-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .export-stat {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .export-stat .val {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .export-stat .lbl {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="login-logo-icon">🏓</div> Padel Prospect
+      </div>
+      <p>Accès réservé. Entre le mot de passe pour continuer.</p>
+      <input type="password" id="login-password" placeholder="Mot de passe..."
+        onkeydown="if(event.key==='Enter')doLogin()" />
+      <div class="login-error" id="login-error">Mot de passe incorrect.</div>
+      <button class="btn btn-primary" onclick="doLogin()" style="width:100%; justify-content:center;">Accéder →</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">🏓</div>
+        Padel Prospect
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Navigation</div>
+        <button class="nav-item active" onclick="goTo('config', this)">
+          <span class="nav-icon">⚙️</span> Configuration
+        </button>
+        <button class="nav-item" onclick="goTo('search', this)">
+          <span class="nav-icon">🔍</span> Recherche
+        </button>
+        <button class="nav-item" onclick="goTo('prospects', this)">
+          <span class="nav-icon">👥</span> Prospects
+          <span class="nav-badge" id="nav-badge" style="display:none">0</span>
+        </button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Stats</div>
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="val" id="st-total">0</div>
+            <div class="lbl">Prospects</div>
+          </div>
+          <div class="stat-mini">
+            <div class="val" id="st-ready">0</div>
+            <div class="lbl">Mails prêts</div>
+          </div>
+          <div class="stat-mini">
+            <div class="val" id="st-validated">0</div>
+            <div class="lbl">Envoyés</div>
+          </div>
+          <div class="stat-mini">
+            <div class="val" id="st-pending">0</div>
+            <div class="lbl">En attente</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- PAGE CONFIG -->
+      <div class="page active" id="page-config">
+        <div class="page-header">
+          <h2>Configuration</h2>
+          <p>Paramètre ton template de mail et les infos de ta salle de padel.</p>
+        </div>
+
+        <div class="section-card">
+          <h3>🏓 Informations padel</h3>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Nom de la salle</label>
+              <input type="text" id="paddle-name" placeholder="ex: Padel Paris Club" />
+            </div>
+            <div class="form-group full">
+              <label>Accroche / Valeur ajoutée</label>
+              <textarea id="pitch"
+                placeholder="ex: salle premium au coeur de Paris, idéale pour team building dirigeants, 8 courts couverts, vestiaires, bar..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Offre / Call-to-action</label>
+              <input type="text" id="offer"
+                placeholder="ex: 1h de court offerte pour une première découverte entre dirigeants" />
+            </div>
+            <div class="form-group full">
+              <label>Délai de relance (jours)</label>
+              <input type="number" id="followup-days" min="1" step="1" placeholder="3" />
+              <p style="font-size:12px; color:var(--gray-400); margin-top:4px;">Un mail envoyé non ouvert après ce délai apparaît dans l'onglet « À relancer ».</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>✍️ Signature email</h3>
+          <div class="form-group full">
+            <label>Signature active</label>
+            <select id="signature-select" onchange="renderSignaturePreview()">
+              <option value="demo">Signature de démonstration</option>
+            </select>
+          </div>
+          <div id="signature-preview" style="margin-top:16px;padding:24px;border:1px solid var(--gray-700);border-radius:8px;background:#fff;color:#222;overflow-x:auto;max-width:100%"></div>
+        </div>
+
+        <div class="section-card">
+          <h3>✉️ Modèles de mail</h3>
+
+          <div class="form-group full" style="margin-bottom:1rem;">
+            <label>Modèle actif <span id="template-kind-badge" class="kind-badge"></span></label>
+            <select id="prompt-preset-select" onchange="onPromptPresetChange()"></select>
+          </div>
+
+          <div class="form-group full" style="margin-bottom:1rem;">
+            <label>Nom du modèle</label>
+            <input type="text" id="template-label" placeholder="ex: Dirigeants — relance" />
+          </div>
+
+          <p id="template-kind-hint" style="font-size:13px; color:var(--gray-400); margin-bottom:1rem;"></p>
+
+          <p style="font-size:13px; color:var(--gray-400); margin-bottom:1rem;">
+            Variables disponibles : <code>{{paddleName}}</code>, <code>{{pitch}}</code>, <code>{{offer}}</code>,
+            <code>{{name}}</code>, <code>{{company}}</code>, <code>{{title}}</code>,
+            <code>{{industry}}</code>, <code>{{description}}</code>, <code>{{keywords}}</code>,
+            <code>{{titleClause}}</code>, <code>{{industryClause}}</code>.
+            <br>En mode IA, un bloc « Contexte entreprise » (secteur, activité, mots-clés) est aussi ajouté automatiquement quand l'info est disponible.
+          </p>
+          <div class="form-group full">
+            <textarea id="prompt-template" rows="18" style="min-height:340px; font-family:'DM Mono', monospace; font-size:12px; line-height:1.55;"></textarea>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" type="button" onclick="addTemplate('ai')">+ Nouveau prompt IA</button>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="addTemplate('static')">+ Nouveau mail-type</button>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="deleteTemplate()">🗑️ Supprimer ce modèle</button>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="resetTemplatesToDefaults()">↺ Restaurer les défauts</button>
+          </div>
+          <p style="font-size:12px; color:var(--gray-500); margin-top:10px; line-height:1.5;">
+            ⚖️ Une mention légale conforme RGPD est ajoutée automatiquement en bas de chaque email.
+          </p>
+        </div>
+
+        <button class="btn btn-primary" onclick="saveConfig()">Sauvegarder la configuration →</button>
+        <div id="config-alert" class="alert" style="margin-top:1rem;"></div>
+      </div>
+
+      <!-- PAGE SEARCH -->
+      <div class="page" id="page-search">
+        <div class="page-header">
+          <h2>Recherche de prospects</h2>
+          <p>Trouve des dirigeants de PME en France via Apollo.</p>
+        </div>
+
+        <div class="credits-card" id="credits-card">
+          <span class="credits-title">💳 Crédits Apollo</span>
+          <div class="credit-pill">
+            <div class="credit-pill-head"><span>Aujourd'hui</span><span><strong id="credit-day">–</strong> / <span id="credit-day-limit">–</span></span></div>
+            <div class="credit-bar"><div class="credit-bar-fill" id="credit-day-bar" style="width:0%"></div></div>
+          </div>
+          <div class="credit-pill">
+            <div class="credit-pill-head"><span>Ce mois</span><span><strong id="credit-month">–</strong> / <span id="credit-month-limit">–</span></span></div>
+            <div class="credit-bar"><div class="credit-bar-fill" id="credit-month-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>🎯 Filtres de recherche</h3>
+
+          <div class="form-group full" style="margin-bottom:1rem;">
+            <label>Zone géographique</label>
+            <div class="zone-mode" id="zone-mode">
+              <div class="zone-mode-btn" data-mode="paris" onclick="setZoneMode('paris')">📍 Paris (arrondissements)</div>
+              <div class="zone-mode-btn" data-mode="regions" onclick="setZoneMode('regions')">🗺️ Régions ciblées</div>
+              <div class="zone-mode-btn" data-mode="france" onclick="setZoneMode('france')">🇫🇷 Toute la France</div>
+            </div>
+          </div>
+
+          <div class="form-group full" id="zone-paris-block" style="margin-bottom:1rem;">
+            <label>Arrondissements de Paris</label>
+            <div class="arr-toolbar">
+              <button type="button" onclick="selectAllArr(true)">Tout sélectionner</button>
+              <button type="button" onclick="selectAllArr(false)">Tout désélectionner</button>
+            </div>
+            <div class="arr-chips" id="arr-chips"></div>
+          </div>
+
+          <div class="form-group full" id="zone-regions-block" style="margin-bottom:1rem; display:none;">
+            <label>Régions</label>
+            <div class="arr-toolbar">
+              <button type="button" onclick="selectAllRegions(true)">Tout sélectionner</button>
+              <button type="button" onclick="selectAllRegions(false)">Tout désélectionner</button>
+            </div>
+            <div class="arr-chips" id="region-chips"></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Taille entreprise</label>
+              <select id="search-size">
+                <option value="">Toute taille</option>
+                <option value="11-50,51-200">PME (11–200 employés)</option>
+                <option value="1-10,11-50">Petites (1–50)</option>
+                <option value="51-200,201-500">Moyennes (51–500)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Type d'entreprise</label>
+              <select id="search-industry-preset" onchange="onIndustryPresetChange()">
+                <option value="">Tous secteurs</option>
+                <option value="padel">🎾 Padel & clubs de sport</option>
+                <option value="restaurant">🍽️ Restauration</option>
+                <option value="btp">🏗️ BTP & construction</option>
+                <option value="retail">🛍️ Retail & commerce</option>
+                <option value="finance">💰 Finance & assurance</option>
+                <option value="tech">💻 Tech / SaaS</option>
+                <option value="sante">⚕️ Santé</option>
+                <option value="immobilier">🏠 Immobilier</option>
+                <option value="conseil">📊 Conseil & services</option>
+                <option value="industrie">🏭 Industrie</option>
+                <option value="custom">✏️ Autre (saisie libre)</option>
+              </select>
+              <input
+                type="text"
+                id="search-industry"
+                placeholder="ex: hôtellerie, agroalimentaire..."
+                style="display:none; margin-top:8px;"
+              />
+            </div>
+            <div class="form-group">
+              <label>Nombre de prospects</label>
+              <select id="search-limit">
+                <option value="1" selected>1 (test)</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="search-alert" class="alert"></div>
+        <div id="search-progress" style="display:none; margin-bottom:1rem;">
+          <div style="font-size:13px; color:var(--gray-400); margin-bottom:6px;" id="search-progress-label">Recherche en
+            cours...</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="search-progress-bar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-search" onclick="doSearch()">
+          🔍 Lancer la recherche
+        </button>
+      </div>
+
+      <!-- PAGE PROSPECTS -->
+      <div class="page" id="page-prospects">
+        <div class="page-header">
+          <h2>Prospects</h2>
+          <p>Génère et valide les mails de prospection.</p>
+        </div>
+
+        <div id="prospects-alert" class="alert"></div>
+
+        <div class="list-bar" id="list-bar"></div>
+
+        <div class="bulk-bar" id="bulk-bar">
+          <span><span class="bulk-count" id="bulk-count">0</span> prospect(s) sélectionné(s)</span>
+          <button class="btn btn-primary btn-sm" onclick="openBulkListsModal()">📋 Ajouter à liste…</button>
+          <button class="btn btn-ghost btn-sm" id="bulk-remove-btn" onclick="removeSelectionFromActiveList()" style="display:none;">➖ Retirer de la liste</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearSelection()">Désélectionner</button>
+        </div>
+
+        <div class="campaign-stats" id="campaign-stats">
+          <div class="campaign-stats-title">📊 Campagne en cours</div>
+          <div class="campaign-stats-grid">
+            <div class="cs-item"><span class="cs-num" id="cs-sent">0</span><span class="cs-label">Envoyés</span></div>
+            <div class="cs-item"><span class="cs-num" id="cs-delivered">0</span><span class="cs-label">Délivrés<small id="cs-delivered-pct"></small></span></div>
+            <div class="cs-item"><span class="cs-num" id="cs-opened">0</span><span class="cs-label">Ouverts<small id="cs-opened-pct"></small></span></div>
+            <div class="cs-item cs-warn"><span class="cs-num" id="cs-bounced">0</span><span class="cs-label">Bounces</span></div>
+            <div class="cs-item cs-bad"><span class="cs-num" id="cs-spam">0</span><span class="cs-label">Spam</span></div>
+          </div>
+        </div>
+
+        <div class="followup-tabs" style="display:flex; gap:8px; margin-bottom:12px;">
+          <button class="btn btn-primary btn-sm" id="tab-all" onclick="setProspectView('all')">Tous</button>
+          <button class="btn btn-ghost btn-sm" id="tab-followup" onclick="setProspectView('followup')">À relancer</button>
+        </div>
+        <div class="actions-row">
+          <input type="text" class="search-box" id="filter-input" placeholder="🔎 Filtrer..." oninput="filterTable()" />
+          <button class="btn btn-primary" id="btn-gen-all" onclick="generateAllMails()">⚡ Générer tous les
+            mails</button>
+          <button class="btn btn-ghost" id="btn-send-all" onclick="sendAllReady()">📨 Tout envoyer</button>
+          <div class="export-dropdown" id="export-dropdown">
+            <button class="btn btn-ghost" id="btn-export" onclick="toggleExportMenu(event)">📥 Exporter CSV ▾</button>
+            <div class="export-menu" id="export-menu">
+              <button onclick="exportCSV('all'); closeExportMenu()">
+                <span>Tout</span>
+                <span class="menu-count" id="export-count-all"></span>
+              </button>
+              <button onclick="exportCSV('validated'); closeExportMenu()">
+                <span>Envoyés seulement</span>
+                <span class="menu-count" id="export-count-sent"></span>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-ghost" id="btn-refresh-stats" onclick="refreshMailStats()">🔄 Rafraîchir stats</button>
+          <span id="gen-progress-label" style="font-size:13px; color:var(--gray-400);"></span>
+        </div>
+
+        <div class="table-wrap" id="prospects-table-wrap">
+          <div class="empty-state">
+            <div class="icon">👥</div>
+            <h3>Aucun prospect</h3>
+            <p>Lance une recherche dans l'onglet Recherche pour commencer.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="mail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-name">Mail</h3>
+          <div class="modal-prospect-info" id="modal-info"></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeModal()">✕ Fermer</button>
+      </div>
+      <div id="modal-alert" class="alert"></div>
+      <textarea id="modal-text" placeholder="Le mail apparaîtra ici..."></textarea>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-sm" onclick="regenMail()" id="btn-regen">↺ Regénérer</button>
+        <button class="btn btn-ghost btn-sm" onclick="validateMail()">✓ Valider</button>
+        <button class="btn btn-ghost btn-sm" onclick="validateAndOpenGmail()">✉️ Ouvrir Gmail</button>
+        <button class="btn btn-primary" id="btn-send-mail" onclick="validateAndSendMail()">📤 Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LISTES BULK -->
+  <div class="modal-overlay" id="bulk-lists-modal">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-header">
+        <div>
+          <h3>📋 Ajouter à une liste</h3>
+          <div class="modal-prospect-info" id="bulk-lists-modal-info"></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeBulkListsModal()">✕ Fermer</button>
+      </div>
+      <div id="bulk-lists-modal-body" style="display:flex; flex-direction:column; gap:6px;"></div>
+      <div style="display:flex; gap:8px;">
+        <input
+          type="text"
+          id="bulk-new-list-input"
+          placeholder="Créer une nouvelle liste…"
+          style="flex:1; background:var(--gray-200); border:1px solid var(--gray-300); border-radius:8px; color:var(--white); padding:10px 12px; font-size:13px; outline:none;"
+          onkeydown="if(event.key==='Enter') createListAndAddBulk()"
+        />
+        <button class="btn btn-primary btn-sm" onclick="createListAndAddBulk()">+ Créer & ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LISTES -->
+  <div class="modal-overlay" id="lists-modal">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-header">
+        <div>
+          <h3>📋 Listes du prospect</h3>
+          <div class="modal-prospect-info" id="lists-modal-info"></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeListsModal()">✕ Fermer</button>
+      </div>
+      <div id="lists-modal-body" style="display:flex; flex-direction:column; gap:6px;"></div>
+      <div style="display:flex; gap:8px;">
+        <input
+          type="text"
+          id="new-list-input"
+          placeholder="Nom de la nouvelle liste…"
+          style="flex:1; background:var(--gray-200); border:1px solid var(--gray-300); border-radius:8px; color:var(--white); padding:10px 12px; font-size:13px; outline:none;"
+          onkeydown="if(event.key==='Enter') createListFromModal()"
+        />
+        <button class="btn btn-primary btn-sm" onclick="createListFromModal()">+ Créer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── AUTH HELPERS ────────────────────────────────────────
+    // Le mot de passe sert de Bearer token pour les appels API.
+    // Stocké en sessionStorage : effacé à la fermeture du navigateur.
+    const AUTH_KEY = 'paddle_token';
+    function getToken() { return sessionStorage.getItem(AUTH_KEY) || ''; }
+    function setToken(t) { sessionStorage.setItem(AUTH_KEY, t); }
+    function clearToken() { sessionStorage.removeItem(AUTH_KEY); }
+
+    function showLoginOverlay() {
+      document.getElementById('login-overlay').classList.remove('hidden');
+      document.getElementById('login-password').value = '';
+    }
+
+    // Wrapper fetch qui injecte le Bearer et gère le 401 (session expirée).
+    async function authFetch(url, opts = {}) {
+      const token = getToken();
+      const headers = { ...(opts.headers || {}) };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      const res = await fetch(url, { ...opts, headers });
+      if (res.status === 401) {
+        clearToken();
+        showLoginOverlay();
+        throw new Error('Session expirée. Reconnecte-toi.');
+      }
+      return res;
+    }
+
+    // Échappe les caractères HTML pour neutraliser toute injection
+    // venant d'Apollo, du formulaire de config ou d'un mail généré.
+    function escapeHTML(s) {
+      return String(s ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Empêche les protocoles dangereux (javascript:, data:) dans les liens
+    // construits depuis des données externes (Apollo). Retourne '' si suspect.
+    function safeUrl(u) {
+      const s = String(u ?? '').trim();
+      if (!s) return '';
+      if (/^https?:\/\//i.test(s)) return s;
+      return '';
+    }
+
+    // Rendu de la cellule entreprise avec liens site web + LinkedIn
+    function renderCompanyCell(p) {
+      const site = safeUrl(p.website);
+      const li = safeUrl(p.linkedin);
+      const links = [];
+      if (site) links.push(`<a href="${escapeHTML(site)}" target="_blank" rel="noopener noreferrer" title="Site web" style="text-decoration:none; margin-left:6px;">🌐</a>`);
+      if (li) links.push(`<a href="${escapeHTML(li)}" target="_blank" rel="noopener noreferrer" title="LinkedIn" style="text-decoration:none; margin-left:4px;">🔗</a>`);
+      return `${escapeHTML(p.company)}${links.join('')}`;
+    }
+
+    // ─── STATE ───────────────────────────────────────────────
+    let prospects = [];
+    let prospectView = 'all'; // 'all' | 'followup' — vue active de la page Prospects
+    let statusFilter = '';    // '' = tous ; sinon un statut interne (sent, opened, …)
+    let modalIdx = null;
+    // Modèle de données :
+    //   templates: librairie de modèles de mail (kind 'ai' = prompt envoyé à
+    //     Groq, kind 'static' = mail-type rendu directement par substitution
+    //     des {{variables}}, sans IA). Modifiables et supprimables.
+    //   templateId: id du modèle actif (celui utilisé pour la génération).
+    let config = {
+      paddleName: '',
+      pitch: '',
+      offer: '',
+      templates: [],
+      templateId: 'dirigeants',
+      followupDays: 3,
+    };
+
+    // Modèles fournis par défaut. Sert de seed à la première utilisation et
+    // pour le bouton "Restaurer les défauts". L'utilisateur peut les modifier
+    // ou les supprimer ensuite (la copie utilisateur vit dans config.templates).
+    const DEFAULT_TEMPLATES = [
+      {
+        id: 'dirigeants',
+        label: 'Dirigeants — invitation à une séance d\'essai',
+        kind: 'ai',
+        body: `Tu es un dirigeant parisien qui écrit un email court et naturel à un autre dirigeant pour l'inviter à jouer au padel. Pas un marketeur. Pas un commercial. Un humain qui parle à un humain.
+
+Infos :
+- Tu représentes : {{paddleName}}
+- Tu écris à : {{name}}, dirigeant de {{company}}{{titleClause}}{{industryClause}}
+- Ce que tu proposes : {{offer}}
+- Angle d'accroche : {{pitch}}
+
+Si un "Contexte réel sur l'entreprise cible" est fourni plus haut, appuie la phrase 1 dessus. Sinon, reste factuel sur leur secteur ou leur fonction — n'invente jamais leur activité.
+
+Règles strictes :
+1. Exactement 3 phrases, courtes.
+   - Phrase 1 : une remarque précise et crédible sur LEUR activité ou LEUR secteur. Elle ne parle QUE d'eux — aucune mention du padel ici.
+   - Phrase 2 : le pont vers le padel (réseau entre dirigeants, décompresser, souder son équipe). C'est la SEULE phrase où le padel apparaît.
+   - Phrase 3 : une seule question concrète pour avancer (proposer un créneau d'essai).
+2. Ne mélange jamais leur métier et le padel dans une même phrase.
+3. Zéro remplissage. Interdits : "j'espère que vous allez bien", "n'hésitez pas", "cordialement", "à quel point", "passionnant", "univers du", "le monde de".
+4. Vouvoiement. Ton direct, concret, humain.
+5. Pas de signature, pas de nom à la fin — un bloc signature visuel est ajouté automatiquement côté serveur.
+
+Format EXACT (rien d'autre) :
+Objet: {{paddleName}} vous invite à une séance d'essai — vous et votre équipe
+
+[3 phrases]
+
+Aucun commentaire. Aucune explication. Juste l'email.`,
+      },
+      {
+        id: 'rh',
+        label: 'RH / Team building — proposer une activité équipe',
+        kind: 'ai',
+        body: `Tu écris un email à un(e) responsable RH ou Head of People pour proposer une activité team building padel à leur équipe.
+
+Infos :
+- Tu représentes : {{paddleName}}
+- Tu écris à : {{name}}, {{title}} chez {{company}}{{industryClause}}
+- Ce que tu proposes : {{offer}}
+- Angle d'accroche : {{pitch}}
+
+Règles strictes :
+1. Corps : 3 phrases max. Phrase 1 = lien avec un enjeu RH actuel (cohésion, onboarding, rétention talents, charge mentale). Phrase 2 = pourquoi le padel fonctionne pour leur format (mixité de niveau, accessible aux débutants, format court). Phrase 3 = une question concrète pour avancer (créneau d'essai, devis pour X personnes).
+2. Zéro formule creuse : pas de "j'espère que vous allez bien", pas de "n'hésitez pas", pas de "cordialement".
+3. Vouvoiement. Ton chaleureux mais professionnel.
+4. Pas de signature, pas de nom à la fin — un bloc signature visuel est ajouté automatiquement côté serveur.
+
+Format EXACT (rien d'autre) :
+Objet: Une idée team building pour {{company}}
+
+[3 phrases]
+
+Aucun commentaire. Aucune explication. Juste l'email.`,
+      },
+      {
+        id: 'mail-type-decouverte',
+        label: 'Mail-type — Découverte (sans IA)',
+        kind: 'static',
+        body: `Objet: {{paddleName}} — une séance d'essai pour vous et votre équipe
+
+Bonjour {{name}},
+
+Je dirige {{paddleName}} et je me permets de vous écrire car {{company}} fait partie des entreprises avec lesquelles nous aimerions collaborer.
+
+Notre offre actuelle : {{offer}}.
+
+Seriez-vous disponible pour un échange rapide cette semaine ?`,
+      },
+    ];
+
+    // ID du modèle utilisé quand aucun n'est encore sauvegardé en config.
+    const DEFAULT_TEMPLATE_ID = 'dirigeants';
+
+    // Clone superficiel mais suffisant — les templates sont des objets plats.
+    function cloneDefaultTemplates() {
+      return DEFAULT_TEMPLATES.map(t => ({ ...t }));
+    }
+
+    function getActiveTemplate() {
+      return config.templates.find(t => t.id === config.templateId) || config.templates[0];
+    }
+
+    function slugify(s) {
+      return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'modele';
+    }
+    function uniqueTemplateId(base) {
+      const seed = slugify(base);
+      const ids = new Set(config.templates.map(t => t.id));
+      if (!ids.has(seed)) return seed;
+      let i = 2;
+      while (ids.has(`${seed}-${i}`)) i++;
+      return `${seed}-${i}`;
+    }
+
+    // ─── NAV ─────────────────────────────────────────────────
+    function goTo(page, el) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      el.classList.add('active');
+      if (page === 'prospects') renderProspects();
+    }
+
+    // ─── CONFIG ──────────────────────────────────────────────
+    // Capture les édits en cours (nom + corps) dans le modèle actif. Le kind
+    // est figé à la création du modèle et n'est pas exposé en édition pour
+    // éviter qu'un prompt IA finisse envoyé tel quel — ou inversement.
+    function captureActiveTemplateFromUI() {
+      const tpl = getActiveTemplate();
+      if (!tpl) return;
+      const ta = document.getElementById('prompt-template');
+      const labelInput = document.getElementById('template-label');
+      if (ta) tpl.body = ta.value;
+      if (labelInput) tpl.label = labelInput.value.trim() || tpl.label;
+    }
+
+    function saveConfig() {
+      config.paddleName = document.getElementById('paddle-name').value.trim();
+      config.pitch = document.getElementById('pitch').value.trim();
+      config.offer = document.getElementById('offer').value.trim();
+      config.followupDays = Math.max(1, parseInt(document.getElementById('followup-days').value, 10) || 3);
+      captureActiveTemplateFromUI();
+
+      if (!config.paddleName || !config.pitch) {
+        showAlert('config-alert', 'error', 'Nom de la salle et accroche requis.');
+        return;
+      }
+      localStorage.setItem('paddle_config', JSON.stringify(config));
+      showAlert('config-alert', 'success', 'Configuration sauvegardée ✓');
+    }
+
+    function loadConfig() {
+      const saved = localStorage.getItem('paddle_config');
+      if (saved) config = { ...config, ...JSON.parse(saved) };
+
+      // Migration legacy : avant on stockait { promptId, prompt }. On rebuild
+      // la librairie à partir des défauts, en réinjectant l'éventuelle version
+      // éditée du prompt actif.
+      if (!Array.isArray(config.templates) || !config.templates.length) {
+        config.templates = cloneDefaultTemplates();
+        if (config.promptId && config.prompt) {
+          const t = config.templates.find(x => x.id === config.promptId);
+          if (t) t.body = config.prompt;
+        }
+        config.templateId = config.promptId || DEFAULT_TEMPLATE_ID;
+        delete config.promptId;
+        delete config.prompt;
+      }
+      if (!config.templates.find(t => t.id === config.templateId)) {
+        config.templateId = config.templates[0]?.id || DEFAULT_TEMPLATE_ID;
+      }
+
+      document.getElementById('paddle-name').value = config.paddleName || '';
+      document.getElementById('pitch').value = config.pitch || '';
+      document.getElementById('offer').value = config.offer || '';
+      document.getElementById('followup-days').value = config.followupDays || 3;
+      renderTemplatesUI();
+    }
+
+    // Rebuild le <select> + remplit les champs du modèle actif (nom, corps,
+    // badge de mode). Le mode n'est pas éditable une fois le modèle créé.
+    function renderTemplatesUI() {
+      const sel = document.getElementById('prompt-preset-select');
+      if (!sel) return;
+      sel.innerHTML = config.templates
+        .map(t => `<option value="${t.id}">${t.kind === 'static' ? '📋' : '🧠'} ${escapeHTML(t.label)}</option>`)
+        .join('');
+      sel.value = config.templateId;
+
+      const tpl = getActiveTemplate();
+      if (!tpl) return;
+      document.getElementById('template-label').value = tpl.label;
+      document.getElementById('prompt-template').value = tpl.body;
+
+      const badge = document.getElementById('template-kind-badge');
+      badge.className = 'kind-badge ' + tpl.kind;
+      badge.textContent = tpl.kind === 'static' ? 'Mail-type' : 'Prompt IA';
+
+      const hint = document.getElementById('template-kind-hint');
+      hint.innerHTML = tpl.kind === 'static'
+        ? `Mode <strong>mail-type</strong> : ce texte est envoyé tel quel (les <code>{{variables}}</code> sont juste remplacées par leur valeur). Pas d'appel IA, pas de coût Groq, résultat 100% prévisible.`
+        : `Mode <strong>IA</strong> : ce texte est envoyé comme prompt à Groq, qui rédige le mail final à partir de tes instructions.`;
+    }
+
+    // Switch de modèle : on persiste d'abord les édits en cours dans le modèle
+    // actuel (sinon ils sont perdus en silence), puis on charge le nouveau.
+    function onPromptPresetChange() {
+      const sel = document.getElementById('prompt-preset-select');
+      captureActiveTemplateFromUI();
+      config.templateId = sel.value;
+      renderTemplatesUI();
+    }
+
+    const STARTER_BODIES = {
+      static: `Objet: [ton objet ici]\n\nBonjour {{name}},\n\n[ton message ici, utilise {{company}}, {{paddleName}}, {{pitch}}, {{offer}}…]\n\nÀ très vite,`,
+      ai: `Tu écris un email court et naturel à {{name}}, dirigeant de {{company}}{{titleClause}}{{industryClause}}, pour {{paddleName}}.\n\nInfos :\n- Ce que tu proposes : {{offer}}\n- Angle d'accroche : {{pitch}}\n\nRègles strictes :\n1. Corps : 3 phrases max, ton direct et humain, vouvoiement.\n2. Zéro formule creuse.\n3. Pas de signature à la fin.\n\nFormat EXACT (rien d'autre) :\nObjet: [ton objet]\n\n[3 phrases]\n\nAucun commentaire. Aucune explication. Juste l'email.`,
+    };
+
+    function addTemplate(kind) {
+      const defaultLabel = kind === 'static' ? 'Nouveau mail-type' : 'Nouveau prompt IA';
+      const label = prompt(`Nom du nouveau ${kind === 'static' ? 'mail-type' : 'prompt IA'} :`, defaultLabel);
+      if (!label || !label.trim()) return;
+      captureActiveTemplateFromUI();
+      const id = uniqueTemplateId(label);
+      config.templates.push({
+        id,
+        label: label.trim(),
+        kind,
+        body: STARTER_BODIES[kind] || STARTER_BODIES.static,
+      });
+      config.templateId = id;
+      renderTemplatesUI();
+      showAlert('config-alert', 'info', 'Modèle créé. N\'oublie pas de sauvegarder.');
+    }
+
+    function deleteTemplate() {
+      if (config.templates.length <= 1) {
+        showAlert('config-alert', 'error', 'Tu dois conserver au moins un modèle.');
+        return;
+      }
+      const tpl = getActiveTemplate();
+      if (!confirm(`Supprimer le modèle "${tpl.label}" ?`)) return;
+      config.templates = config.templates.filter(t => t.id !== tpl.id);
+      config.templateId = config.templates[0].id;
+      renderTemplatesUI();
+      showAlert('config-alert', 'info', 'Modèle supprimé. N\'oublie pas de sauvegarder.');
+    }
+
+    function resetTemplatesToDefaults() {
+      if (!confirm('Remplacer tous les modèles par les défauts ? Tes modèles persos seront perdus.')) return;
+      config.templates = cloneDefaultTemplates();
+      config.templateId = DEFAULT_TEMPLATE_ID;
+      renderTemplatesUI();
+      showAlert('config-alert', 'info', 'Modèles restaurés. N\'oublie pas de sauvegarder.');
+    }
+
+    // Payload envoyé à /api/generate : fusionne la config + le body/kind du
+    // modèle actif. Le serveur lit `prompt` (corps) + `kind` (ai/static).
+    function buildTemplatePayload() {
+      const tpl = getActiveTemplate() || { kind: 'ai', body: '' };
+      return {
+        paddleName: config.paddleName,
+        pitch: config.pitch,
+        offer: config.offer,
+        prompt: tpl.body,
+        kind: tpl.kind,
+      };
+    }
+
+    // ─── SIGNATURES (aperçu inline) ──────────────────────────
+    // Doivent rester ISO avec ce qui est posé dans SIGNATURE_HTML sur Vercel.
+    // Si tu ajoutes un client, ajoute une entrée ici + une <option> dans le
+    // <select> de la page Config, et copie son HTML dans une env var dédiée.
+    const SIGNATURES = {
+      demo: `
+        <table cellpadding="0" cellspacing="0" border="0" style="margin:0;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
+          <tr>
+            <td style="padding:0 20px 0 0;border-right:2px solid #d4d4d4;vertical-align:top;text-align:center">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Crect width='110' height='110' rx='8' fill='%23d4d4d4'/%3E%3C/svg%3E" alt="Photo" width="110" height="110" style="display:block;border-radius:8px;margin:0 auto">
+              <a href="https://example.com/" style="display:inline-block;margin-top:10px">
+                <img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-web.png" alt="Site" width="140" style="display:block;border:0;height:auto;max-width:140px">
+              </a>
+            </td>
+            <td style="padding:0 0 0 20px;vertical-align:top;font-size:13px;color:#333;line-height:1.5">
+              <div style="font-size:16px;font-weight:bold;color:#000;margin-bottom:2px">Julien MOREAU</div>
+              <div style="color:#666;margin-bottom:6px">Fondateur &amp; Président</div>
+              <div style="font-size:14px;font-weight:bold;color:#000;margin-bottom:10px">PADEL CLUB</div>
+              <div style="margin-bottom:2px">
+                <a href="mailto:contact@padel-club.example" style="color:#333;text-decoration:none">contact@padel-club.example</a>
+              </div>
+              <div style="margin-bottom:2px">
+                <a href="tel:+33612345678" style="color:#333;text-decoration:none">06 12 34 56 78</a>
+                &nbsp;·&nbsp;
+                <a href="tel:+33123456789" style="color:#333;text-decoration:none">01 23 45 67 89</a>
+              </div>
+              <div style="margin-bottom:2px;color:#666">10 rue du Sport, 75011 Paris</div>
+              <div style="margin-bottom:10px">
+                <a href="https://example.com/" style="color:#0066cc;text-decoration:none;font-weight:bold">padel-club.example</a>
+              </div>
+              <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+                <tr>
+                  <td style="padding-right:8px"><a href="https://www.linkedin.com/in/exemple/"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-linkedin.png" alt="LinkedIn" width="24" height="24" style="display:block;border:0"></a></td>
+                  <td style="padding-right:8px"><a href="https://www.instagram.com/exemple/"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-instagram.png" alt="Instagram" width="24" height="24" style="display:block;border:0"></a></td>
+                  <td style="padding-right:8px"><a href="https://www.tiktok.com/@exemple"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-tiktok.png" alt="TikTok" width="24" height="24" style="display:block;border:0"></a></td>
+                  <td><a href="https://www.facebook.com/exemple"><img src="https://32mof0zfohsnhmkm.public.blob.vercel-storage.com/icon-facebook.png" alt="Facebook" width="24" height="24" style="display:block;border:0"></a></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>`,
+    };
+
+    function renderSignaturePreview() {
+      const id = document.getElementById('signature-select').value;
+      const html = SIGNATURES[id] || '<p style="color:#999">Aucune signature configurée.</p>';
+      document.getElementById('signature-preview').innerHTML = html;
+    }
+
+    // ─── ARRONDISSEMENTS ─────────────────────────────────────
+    const ARRONDISSEMENTS = Array.from({ length: 20 }, (_, i) => i + 1);
+
+    function renderArrChips() {
+      const wrap = document.getElementById('arr-chips');
+      if (!wrap) return;
+      const saved = JSON.parse(localStorage.getItem('paddle_arrondissements') || '[]');
+      const selected = new Set(saved.length ? saved : ARRONDISSEMENTS);
+      wrap.innerHTML = ARRONDISSEMENTS.map(n => {
+        const label = n === 1 ? '1er' : `${n}e`;
+        return `<div class="arr-chip ${selected.has(n) ? 'active' : ''}" data-arr="${n}" onclick="toggleArr(${n})">${label}</div>`;
+      }).join('');
+    }
+
+    function getSelectedArr() {
+      return ARRONDISSEMENTS.filter(n =>
+        document.querySelector(`.arr-chip[data-arr="${n}"]`)?.classList.contains('active')
+      );
+    }
+
+    function saveSelectedArr() {
+      localStorage.setItem('paddle_arrondissements', JSON.stringify(getSelectedArr()));
+    }
+
+    function toggleArr(n) {
+      document.querySelector(`.arr-chip[data-arr="${n}"]`)?.classList.toggle('active');
+      saveSelectedArr();
+    }
+
+    function selectAllArr(on) {
+      document.querySelectorAll('#arr-chips .arr-chip').forEach(c => c.classList.toggle('active', on));
+      saveSelectedArr();
+    }
+
+    // ─── RÉGIONS FR ──────────────────────────────────────────
+    const REGIONS = [
+      { code: 'FR-IDF', label: 'Île-de-France' },
+      { code: 'FR-ARA', label: 'Auvergne-Rhône-Alpes' },
+      { code: 'FR-PAC', label: "Provence-Alpes-Côte d'Azur" },
+      { code: 'FR-NAQ', label: 'Nouvelle-Aquitaine' },
+      { code: 'FR-OCC', label: 'Occitanie' },
+      { code: 'FR-PDL', label: 'Pays de la Loire' },
+      { code: 'FR-HDF', label: 'Hauts-de-France' },
+      { code: 'FR-GES', label: 'Grand Est' },
+      { code: 'FR-BRE', label: 'Bretagne' },
+      { code: 'FR-NOR', label: 'Normandie' },
+      { code: 'FR-CVL', label: 'Centre-Val de Loire' },
+      { code: 'FR-BFC', label: 'Bourgogne-Franche-Comté' },
+      { code: 'FR-COR', label: 'Corse' },
+    ];
+
+    function renderRegionChips() {
+      const wrap = document.getElementById('region-chips');
+      if (!wrap) return;
+      const saved = JSON.parse(localStorage.getItem('paddle_regions') || '[]');
+      const selected = new Set(saved.length ? saved : ['FR-IDF']);
+      wrap.innerHTML = REGIONS.map(r =>
+        `<div class="arr-chip ${selected.has(r.code) ? 'active' : ''}" data-region="${r.code}" onclick="toggleRegion('${r.code}')">${r.label}</div>`
+      ).join('');
+    }
+
+    function getSelectedRegions() {
+      return REGIONS
+        .map(r => r.code)
+        .filter(c => document.querySelector(`.arr-chip[data-region="${c}"]`)?.classList.contains('active'));
+    }
+
+    function saveSelectedRegions() {
+      localStorage.setItem('paddle_regions', JSON.stringify(getSelectedRegions()));
+    }
+
+    function toggleRegion(code) {
+      document.querySelector(`.arr-chip[data-region="${code}"]`)?.classList.toggle('active');
+      saveSelectedRegions();
+    }
+
+    function selectAllRegions(on) {
+      document.querySelectorAll('#region-chips .arr-chip').forEach(c => c.classList.toggle('active', on));
+      saveSelectedRegions();
+    }
+
+    // ─── LISTES DE PROSPECTS ─────────────────────────────────
+    // Postgres (table `lists` + `list_prospects`) via /api/lists.
+    // Forme côté JS : [{ id, name, prospectIds: [] }, ...]
+    // localStorage 'paddle_active_list' → id ou '' (préf UI, reste local)
+    let lists = [];
+    let activeListId = '';
+
+    async function loadLists() {
+      try {
+        const res = await authFetch('/api/lists');
+        if (!res.ok) throw new Error('Erreur chargement listes');
+        const data = await res.json();
+        lists = data.lists || [];
+      } catch (e) {
+        console.error('loadLists:', e);
+        lists = [];
+      }
+      activeListId = localStorage.getItem('paddle_active_list') || '';
+    }
+
+    // PUT-tout avec mutex : si une sauvegarde est déjà en vol, on marque
+    // dirty=true et on sort ; la sauvegarde en cours bouclera et enverra
+    // le dernier snapshot. Évite les writes concurrents côté serveur.
+    let _listsSyncing = false;
+    let _listsDirty = false;
+    async function saveLists() {
+      _listsDirty = true;
+      if (_listsSyncing) return;
+      _listsSyncing = true;
+      try {
+        while (_listsDirty) {
+          _listsDirty = false;
+          const snapshot = lists;
+          const res = await authFetch('/api/lists', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(snapshot),
+          });
+          if (!res.ok) throw new Error('Sauvegarde listes échouée');
+        }
+      } catch (e) {
+        console.error('saveLists:', e);
+      } finally {
+        _listsSyncing = false;
+      }
+    }
+
+    function setActiveList(id) {
+      activeListId = id || '';
+      localStorage.setItem('paddle_active_list', activeListId);
+      renderListBar();
+      renderProspects(document.getElementById('filter-input')?.value.toLowerCase() || '');
+      updateBulkButtonLabels();
+    }
+
+    function createList(name) {
+      const trimmed = (name || '').trim();
+      if (!trimmed) return null;
+      // Nom unique (case-insensitive)
+      if (lists.some(l => l.name.toLowerCase() === trimmed.toLowerCase())) {
+        showAlert('prospects-alert', 'error', `La liste "${trimmed}" existe déjà.`);
+        return null;
+      }
+      const list = { id: 'l_' + crypto.randomUUID(), name: trimmed, prospectIds: [] };
+      lists.push(list);
+      saveLists();
+      return list;
+    }
+
+    function renameList(id) {
+      const list = lists.find(l => l.id === id);
+      if (!list) return;
+      const next = prompt('Nouveau nom de la liste :', list.name);
+      if (next == null) return; // annulé
+      const trimmed = next.trim();
+      if (!trimmed || trimmed === list.name) return;
+      if (lists.some(l => l.id !== id && l.name.toLowerCase() === trimmed.toLowerCase())) {
+        showAlert('prospects-alert', 'error', `La liste "${trimmed}" existe déjà.`);
+        return;
+      }
+      list.name = trimmed;
+      saveLists();
+      renderListBar();
+      // Rafraîchir les badges des prospects présents dans cette liste
+      renderProspects(document.getElementById('filter-input')?.value.toLowerCase() || '');
+    }
+
+    function deleteList(id) {
+      const list = lists.find(l => l.id === id);
+      if (!list) return;
+      if (!confirm(`Supprimer la liste "${list.name}" ? Les prospects ne sont pas supprimés.`)) return;
+      lists = lists.filter(l => l.id !== id);
+      saveLists();
+      if (activeListId === id) setActiveList('');
+      else { renderListBar(); renderProspects(document.getElementById('filter-input')?.value.toLowerCase() || ''); }
+    }
+
+    function toggleProspectInList(prospectId, listId) {
+      const list = lists.find(l => l.id === listId);
+      if (!list) return;
+      const idx = list.prospectIds.indexOf(prospectId);
+      if (idx >= 0) list.prospectIds.splice(idx, 1);
+      else list.prospectIds.push(prospectId);
+      saveLists();
+    }
+
+    function getListsForProspect(prospectId) {
+      return lists.filter(l => l.prospectIds.includes(prospectId));
+    }
+
+    function renderListBar() {
+      const bar = document.getElementById('list-bar');
+      if (!bar) return;
+      const total = prospects.length;
+      const chips = [
+        `<div class="list-chip ${activeListId === '' ? 'active' : ''}" onclick="setActiveList('')">
+          Toutes <span class="list-count">${total}</span>
+        </div>`,
+        ...lists.map(l => `
+          <div class="list-chip ${activeListId === l.id ? 'active' : ''}" onclick="setActiveList('${l.id}')">
+            ${escapeHTML(l.name)} <span class="list-count">${l.prospectIds.length}</span>
+            <span class="list-rename" onclick="event.stopPropagation(); renameList('${l.id}')" title="Renommer la liste">✏️</span>
+            <span class="list-del" onclick="event.stopPropagation(); deleteList('${l.id}')" title="Supprimer la liste">×</span>
+          </div>
+        `),
+        `<button class="list-chip-add" onclick="promptNewList()">+ Nouvelle liste</button>`,
+      ];
+      bar.innerHTML = chips.join('');
+    }
+
+    function promptNewList() {
+      const name = prompt('Nom de la nouvelle liste :');
+      if (name && createList(name)) {
+        renderListBar();
+      }
+    }
+
+    // ── Modal de gestion des listes pour un prospect ──
+    let currentListsModalProspect = null;
+
+    function openListsModal(prospectId) {
+      const p = prospects.find(x => x.id === prospectId);
+      if (!p) return;
+      currentListsModalProspect = prospectId;
+      document.getElementById('lists-modal-info').textContent = `${p.name} — ${p.company}`;
+      renderListsModalBody();
+      document.getElementById('new-list-input').value = '';
+      document.getElementById('lists-modal').classList.add('open');
+    }
+
+    function closeListsModal() {
+      document.getElementById('lists-modal').classList.remove('open');
+      currentListsModalProspect = null;
+    }
+
+    function renderListsModalBody() {
+      const body = document.getElementById('lists-modal-body');
+      if (!body || !currentListsModalProspect) return;
+      if (!lists.length) {
+        body.innerHTML = `<div style="color:var(--gray-400); font-size:13px; padding:8px;">Aucune liste. Crée-en une ci-dessous.</div>`;
+        return;
+      }
+      const pid = currentListsModalProspect;
+      body.innerHTML = lists.map(l => {
+        const checked = l.prospectIds.includes(pid);
+        return `
+          <label class="list-checkbox-row" for="lcb-${l.id}">
+            <input type="checkbox" id="lcb-${l.id}" ${checked ? 'checked' : ''} onchange="onListCheckboxChange('${l.id}')" />
+            <span>${escapeHTML(l.name)}</span>
+            <span style="margin-left:auto; font-size:11px; color:var(--gray-400);">${l.prospectIds.length} prospect${l.prospectIds.length > 1 ? 's' : ''}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function onListCheckboxChange(listId) {
+      if (!currentListsModalProspect) return;
+      toggleProspectInList(currentListsModalProspect, listId);
+      renderListBar();
+      renderListsModalBody();
+      // Refresh just this row's list badges (cell 1 = name col; cell 0 = checkbox)
+      const row = document.getElementById('row-' + currentListsModalProspect);
+      if (row && row.cells[1]) {
+        const p = prospects.find(x => x.id === currentListsModalProspect);
+        if (p) row.cells[1].innerHTML = renderProspectNameCell(p);
+      }
+    }
+
+    function createListFromModal() {
+      const input = document.getElementById('new-list-input');
+      const name = input.value.trim();
+      if (!name) return;
+      const created = createList(name);
+      if (created && currentListsModalProspect) {
+        toggleProspectInList(currentListsModalProspect, created.id);
+      }
+      input.value = '';
+      renderListsModalBody();
+      renderListBar();
+      const p = prospects.find(x => x.id === currentListsModalProspect);
+      if (p) {
+        const row = document.getElementById('row-' + p.id);
+        if (row && row.cells[1]) row.cells[1].innerHTML = renderProspectNameCell(p);
+      }
+    }
+
+    // ── Sélection multiple ──
+    const selectedProspectIds = new Set();
+
+    function updateBulkBar() {
+      const bar = document.getElementById('bulk-bar');
+      const count = document.getElementById('bulk-count');
+      if (!bar || !count) return;
+      const n = selectedProspectIds.size;
+      count.textContent = n;
+      bar.classList.toggle('visible', n > 0);
+      // Le bouton "Retirer de la liste" n'a de sens que si une liste est active
+      const removeBtn = document.getElementById('bulk-remove-btn');
+      if (removeBtn) removeBtn.style.display = (n > 0 && activeListId) ? '' : 'none';
+      // Sync header checkbox state si visible
+      const header = document.getElementById('header-checkbox');
+      if (header) {
+        const visibleRows = document.querySelectorAll('.row-checkbox');
+        const visibleIds = Array.from(visibleRows).map(r => r.dataset.pid);
+        const allChecked = visibleIds.length > 0 && visibleIds.every(id => selectedProspectIds.has(id));
+        header.checked = allChecked;
+        header.indeterminate = !allChecked && visibleIds.some(id => selectedProspectIds.has(id));
+      }
+    }
+
+    function toggleProspectSelection(prospectId, checked) {
+      if (checked) selectedProspectIds.add(prospectId);
+      else selectedProspectIds.delete(prospectId);
+      updateBulkBar();
+    }
+
+    function toggleSelectAll(checked) {
+      document.querySelectorAll('.row-checkbox').forEach(cb => {
+        cb.checked = checked;
+        if (checked) selectedProspectIds.add(cb.dataset.pid);
+        else selectedProspectIds.delete(cb.dataset.pid);
+      });
+      updateBulkBar();
+    }
+
+    function clearSelection() {
+      selectedProspectIds.clear();
+      document.querySelectorAll('.row-checkbox').forEach(cb => { cb.checked = false; });
+      updateBulkBar();
+    }
+
+    // ── Modal bulk : ajouter sélection à une liste ──
+    function openBulkListsModal() {
+      if (!selectedProspectIds.size) return;
+      document.getElementById('bulk-lists-modal-info').textContent =
+        `${selectedProspectIds.size} prospect(s) sélectionné(s)`;
+      renderBulkListsModalBody();
+      document.getElementById('bulk-new-list-input').value = '';
+      document.getElementById('bulk-lists-modal').classList.add('open');
+    }
+
+    function closeBulkListsModal() {
+      document.getElementById('bulk-lists-modal').classList.remove('open');
+    }
+
+    function renderBulkListsModalBody() {
+      const body = document.getElementById('bulk-lists-modal-body');
+      if (!body) return;
+      if (!lists.length) {
+        body.innerHTML = `<div style="color:var(--gray-400); font-size:13px; padding:8px;">Aucune liste existante. Crée-en une ci-dessous.</div>`;
+        return;
+      }
+      body.innerHTML = lists.map(l => {
+        // Combien de la sélection sont déjà dans cette liste
+        const already = Array.from(selectedProspectIds).filter(id => l.prospectIds.includes(id)).length;
+        const status = already === selectedProspectIds.size
+          ? `<span style="font-size:11px; color:var(--accent);">Tous déjà dedans</span>`
+          : already > 0
+            ? `<span style="font-size:11px; color:var(--gray-400);">${already}/${selectedProspectIds.size} déjà dedans</span>`
+            : `<span style="font-size:11px; color:var(--gray-400);">${l.prospectIds.length} prospect${l.prospectIds.length > 1 ? 's' : ''}</span>`;
+        return `
+          <div class="list-checkbox-row" onclick="addSelectionToList('${l.id}')" style="cursor:pointer;">
+            <span style="font-size:16px;">➕</span>
+            <span>${escapeHTML(l.name)}</span>
+            <span style="margin-left:auto;">${status}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addSelectionToList(listId) {
+      const list = lists.find(l => l.id === listId);
+      if (!list) return;
+      let added = 0;
+      for (const pid of selectedProspectIds) {
+        if (!list.prospectIds.includes(pid)) {
+          list.prospectIds.push(pid);
+          added++;
+        }
+      }
+      saveLists();
+      renderListBar();
+      // Refresh visible rows' badges
+      selectedProspectIds.forEach(pid => {
+        const row = document.getElementById('row-' + pid);
+        if (row && row.cells[1]) {
+          const p = prospects.find(x => x.id === pid);
+          if (p) row.cells[1].innerHTML = renderProspectNameCell(p);
+        }
+      });
+      closeBulkListsModal();
+      showAlert(
+        'prospects-alert',
+        'success',
+        `${added} prospect${added > 1 ? 's' : ''} ajouté${added > 1 ? 's' : ''} à "${list.name}".`
+      );
+    }
+
+    function createListAndAddBulk() {
+      const input = document.getElementById('bulk-new-list-input');
+      const name = input.value.trim();
+      if (!name) return;
+      const created = createList(name);
+      if (!created) return;
+      input.value = '';
+      addSelectionToList(created.id);
+    }
+
+    function renderProspectNameCell(p) {
+      const inLists = getListsForProspect(p.id);
+      const badges = inLists.length
+        ? `<div class="list-badges">${inLists.map(l => `
+            <span class="list-badge">
+              📋 ${escapeHTML(l.name)}
+              <span class="badge-remove" title="Retirer de cette liste" onclick="removeProspectFromList('${p.id}', '${l.id}')">×</span>
+            </span>
+          `).join('')}</div>`
+        : '';
+      return `
+        <div class="td-name">${escapeHTML(p.name)}</div>
+        <div style="font-size:11px; color:var(--gray-400);">${escapeHTML(p.title)}</div>
+        ${badges}
+      `;
+    }
+
+    function removeProspectFromList(prospectId, listId) {
+      const list = lists.find(l => l.id === listId);
+      if (!list) return;
+      list.prospectIds = list.prospectIds.filter(id => id !== prospectId);
+      saveLists();
+      renderListBar();
+      // Si on filtre sur cette liste, ré-render pour faire disparaître la ligne
+      if (activeListId === listId) {
+        renderProspects(document.getElementById('filter-input')?.value.toLowerCase() || '');
+      } else {
+        // Sinon juste rafraîchir la cellule nom
+        const row = document.getElementById('row-' + prospectId);
+        if (row && row.cells[1]) {
+          const p = prospects.find(x => x.id === prospectId);
+          if (p) row.cells[1].innerHTML = renderProspectNameCell(p);
+        }
+      }
+    }
+
+    function removeSelectionFromActiveList() {
+      if (!activeListId || !selectedProspectIds.size) return;
+      const list = lists.find(l => l.id === activeListId);
+      if (!list) return;
+      const n = selectedProspectIds.size;
+      if (!confirm(`Retirer ${n} prospect${n > 1 ? 's' : ''} de la liste "${list.name}" ?`)) return;
+      list.prospectIds = list.prospectIds.filter(id => !selectedProspectIds.has(id));
+      saveLists();
+      selectedProspectIds.clear();
+      renderListBar();
+      renderProspects(document.getElementById('filter-input')?.value.toLowerCase() || '');
+      showAlert('prospects-alert', 'success', `${n} prospect${n > 1 ? 's retirés' : ' retiré'} de "${list.name}".`);
+    }
+
+    // ─── INDUSTRY PRESETS ────────────────────────────────────
+    // Variantes envoyées à Apollo (q_keywords) — une requête par variante,
+    // résultats mergés et dédupés côté serveur. Les recherches Apollo sont
+    // gratuites, donc plusieurs variantes = plus de couverture sans surcoût.
+    const INDUSTRY_KEYWORDS = {
+      padel: ['padel', 'club padel', 'centre padel', 'padel club'],
+      restaurant: ['restaurant', 'restauration'],
+      btp: ['BTP', 'construction', 'travaux publics'],
+      retail: ['retail', 'commerce', 'boutique'],
+      finance: ['finance', 'assurance', 'banque'],
+      tech: ['SaaS', 'logiciel', 'software'],
+      sante: ['santé', 'médical', 'clinique'],
+      immobilier: ['immobilier', 'agence immobilière'],
+      conseil: ['conseil', 'consulting'],
+      industrie: ['industrie', 'manufacturing', 'usine'],
+    };
+
+    function onIndustryPresetChange() {
+      const sel = document.getElementById('search-industry-preset');
+      const txt = document.getElementById('search-industry');
+      if (!sel || !txt) return;
+      const isCustom = sel.value === 'custom';
+      txt.style.display = isCustom ? '' : 'none';
+      if (!isCustom) txt.value = '';
+      localStorage.setItem('paddle_industry_preset', sel.value);
+    }
+
+    function initIndustryPreset() {
+      const sel = document.getElementById('search-industry-preset');
+      if (!sel) return;
+      const saved = localStorage.getItem('paddle_industry_preset') || '';
+      sel.value = saved;
+      onIndustryPresetChange();
+    }
+
+    // Retourne un tableau de variantes de mots-clés (vide si "Tous secteurs").
+    function getIndustryKeywords() {
+      const sel = document.getElementById('search-industry-preset');
+      const txt = document.getElementById('search-industry');
+      if (!sel) return [];
+      if (sel.value === 'custom') {
+        const v = (txt?.value || '').trim();
+        return v ? [v] : [];
+      }
+      return INDUSTRY_KEYWORDS[sel.value] || [];
+    }
+
+    // ─── ZONE MODE ───────────────────────────────────────────
+    function getZoneMode() {
+      return localStorage.getItem('paddle_zone_mode') || 'paris';
+    }
+
+    function setZoneMode(mode) {
+      localStorage.setItem('paddle_zone_mode', mode);
+      document.querySelectorAll('#zone-mode .zone-mode-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === mode);
+      });
+      document.getElementById('zone-paris-block').style.display = mode === 'paris' ? '' : 'none';
+      document.getElementById('zone-regions-block').style.display = mode === 'regions' ? '' : 'none';
+    }
+
+    function initZoneMode() {
+      setZoneMode(getZoneMode());
+    }
+
+    // ─── SEARCH ──────────────────────────────────────────────
+    async function doSearch() {
+      const zoneMode = getZoneMode();
+      const arrondissements = getSelectedArr();
+      const regions = getSelectedRegions();
+      const sizeRaw = document.getElementById('search-size').value;
+      const headcount = sizeRaw ? sizeRaw.split(',') : [];
+      const industries = getIndustryKeywords();
+      const limit = parseInt(document.getElementById('search-limit').value);
+
+      if (zoneMode === 'paris' && !arrondissements.length) {
+        showAlert('search-alert', 'error', 'Sélectionne au moins un arrondissement.');
+        return;
+      }
+      if (zoneMode === 'regions' && !regions.length) {
+        showAlert('search-alert', 'error', 'Sélectionne au moins une région.');
+        return;
+      }
+
+      showAlert('search-alert', 'info', 'Connexion à Apollo...');
+      document.getElementById('btn-search').disabled = true;
+      setProgress('search', 10, 'Envoi de la requête Apollo...');
+
+      try {
+        const excludeIds = prospects.map(p => p.apollo_id).filter(Boolean);
+        const res = await authFetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'fetch',
+            payload: { zoneMode, arrondissements, regions, headcount, industries, limit, excludeIds },
+          }),
+        });
+        const data = await res.json();
+        // L'API renvoie `usage` même en cas de 429 (quota mensuel) → on
+        // rafraîchit la jauge avant de propager l'erreur.
+        if (data?.usage) renderCredits(data.usage);
+        if (!res.ok) throw new Error(data.error || 'Erreur API');
+
+        setProgress('search', 60, 'Récupération des données...');
+
+        // Le serveur renvoie déjà les champs normalisés : name, company, title, email
+        const raw = data.prospects || data.results || data.data || [];
+        const newProspects = raw.map((p) => ({
+          // UUID v4 (natif depuis 2022) — évite les collisions de Date.now()+i
+          // quand deux recherches partent à < 1ms d'intervalle.
+          id: crypto.randomUUID(),
+          name: p.name || 'Inconnu',
+          company: p.company || '—',
+          title: p.title || '',
+          email: p.email || '',
+          city: p.city || '',
+          arrondissement: p.arrondissement || null,
+          department: p.department || null,
+          postalCode: p.postalCode || null,
+          industry: p.industry || '',
+          description: p.description || '',
+          keywords: p.keywords || '',
+          website: p.website || '',
+          linkedin: p.linkedin || '',
+          apollo_id: p.apollo_id || null,
+          status: 'pending',
+          mail: '',
+          messageId: null,
+        }));
+
+        setProgress('search', 100, `${newProspects.length} prospects trouvés !`);
+        const existingKeys = new Set(prospects.map(p => p.apollo_id ? `eid:${p.apollo_id}` : `${p.name}|${p.company}`));
+        const deduplicated = newProspects.filter(p => {
+          const key = p.apollo_id ? `eid:${p.apollo_id}` : `${p.name}|${p.company}`;
+          return !existingKeys.has(key);
+        });
+        prospects = [...prospects, ...deduplicated];
+        updateStats();
+        updateNavBadge();
+        saveProspects();
+        renderListBar();
+
+        const skipped = newProspects.length - deduplicated.length;
+        const msg = skipped > 0
+          ? `${deduplicated.length} prospects ajoutés (${skipped} doublons ignorés). Va dans l'onglet Prospects pour générer les mails.`
+          : `${deduplicated.length} prospects ajoutés. Va dans l'onglet Prospects pour générer les mails.`;
+        showAlert('search-alert', 'success', msg);
+      } catch (err) {
+        showAlert('search-alert', 'error', 'Erreur : ' + err.message);
+      } finally {
+        document.getElementById('btn-search').disabled = false;
+        setTimeout(() => setProgress('search', 0, ''), 2000);
+      }
+    }
+
+    // Prospects visibles selon la liste active (scope partagé liste/relance).
+    function scopedPool() {
+      if (!activeListId) return prospects;
+      const list = lists.find(l => l.id === activeListId);
+      const ids = new Set(list?.prospectIds || []);
+      return prospects.filter(p => ids.has(p.id));
+    }
+
+    // Prospects à relancer dans le scope courant.
+    function getFollowupProspects() {
+      const now = Date.now();
+      const days = config.followupDays || 3;
+      return scopedPool().filter(p => needsFollowup(p, days, now));
+    }
+
+    // Met à jour le libellé/compteur de l'onglet « À relancer » (le "bip").
+    function updateFollowupBadge() {
+      const btn = document.getElementById('tab-followup');
+      if (!btn) return;
+      const n = getFollowupProspects().length;
+      btn.textContent = n > 0 ? `À relancer (${n})` : 'À relancer';
+    }
+
+    // Bascule la vue Tous / À relancer et re-rend.
+    function setProspectView(view) {
+      prospectView = view;
+      document.getElementById('tab-all').className = 'btn btn-sm ' + (view === 'all' ? 'btn-primary' : 'btn-ghost');
+      document.getElementById('tab-followup').className = 'btn btn-sm ' + (view === 'followup' ? 'btn-primary' : 'btn-ghost');
+      renderProspects(document.getElementById('filter-input').value.toLowerCase());
+    }
+
+    // Applique le filtre par statut (déclenché par le <select> de la barre d'actions).
+    function setStatusFilter(value) {
+      statusFilter = value;
+      renderProspects(document.getElementById('filter-input').value.toLowerCase());
+    }
+
+    // Jours entiers écoulés depuis une date ISO (affichage "envoyé il y a X j").
+    function daysSince(iso) {
+      const t = Date.parse(iso);
+      if (Number.isNaN(t)) return null;
+      return Math.floor((Date.now() - t) / 86400000);
+    }
+
+    // Vrai si un mail envoyé n'a toujours pas été ouvert passé le délai de relance.
+    // Pur : ne dépend que de ses arguments (testable hors navigateur).
+    //  - status 'sent'/'delivered' = parti mais pas ouvert (exclut opened/clicked,
+    //    et bounced/spam qui ne se relancent pas) ;
+    //  - sentAt = date d'envoi (ISO, vient de Resend created_at) ;
+    //  - now = horodatage courant en ms.
+    function needsFollowup(p, followupDays, now) {
+      if (!p || (p.status !== 'sent' && p.status !== 'delivered')) return false;
+      if (!p.sentAt) return false;
+      const sent = Date.parse(p.sentAt);
+      if (Number.isNaN(sent)) return false;
+      return (now - sent) >= followupDays * 86400000;
+    }
+
+    // <select> de filtre statut, rendu DANS l'en-tête de la colonne Statut.
+    // L'option sélectionnée reflète statusFilter (l'en-tête est reconstruit à
+    // chaque rendu de la table, donc on marque "selected" à la main).
+    function statusFilterSelectHtml() {
+      const opts = [
+        ['', 'Tous'], ['pending', 'En attente'], ['ready', 'Mail prêt'],
+        ['validated', 'Validé'], ['sent', 'Envoyé'], ['delivered', 'Délivré'],
+        ['opened', 'Ouvert'], ['clicked', 'Cliqué'], ['bounced', 'Bounce'],
+        ['spam', 'Spam'], ['error', 'Erreur'],
+      ];
+      const options = opts.map(([v, l]) =>
+        `<option value="${v}"${v === statusFilter ? ' selected' : ''}>${l}</option>`
+      ).join('');
+      return `<select id="status-filter" class="col-filter-select" onchange="setStatusFilter(this.value)">${options}</select>`;
+    }
+
+    // Contenu de l'état vide de la table, selon la vue active.
+    function emptyStateHtml(filter) {
+      if (prospectView === 'followup') {
+        const sentLike = ['sent', 'delivered', 'opened', 'clicked', 'bounced', 'spam'];
+        const anySent = scopedPool().some(p => sentLike.includes(p.status));
+        const noDates = scopedPool().every(p => !p.sentAt);
+        const msg = (anySent && noDates)
+          ? 'Clique sur 🔄 Rafraîchir stats pour détecter les mails à relancer.'
+          : 'Aucun mail à relancer 🎉';
+        return `<div class="empty-state"><div class="icon">📭</div><h3>Rien à relancer</h3><p>${msg}</p></div>`;
+      }
+      const hasFilter = !!filter || !!statusFilter;
+      return `<div class="empty-state"><div class="icon">👥</div><h3>${hasFilter ? 'Aucun résultat' : 'Aucun prospect'}</h3><p>${hasFilter ? 'Essaie un autre filtre.' : 'Lance une recherche dans l\'onglet Recherche.'}</p></div>`;
+    }
+
+    // ─── PROSPECTS TABLE ─────────────────────────────────────
+    function renderProspects(filter = '') {
+      const wrap = document.getElementById('prospects-table-wrap');
+      updateFollowupBadge();
+      let pool = scopedPool();
+      if (prospectView === 'followup') {
+        const now = Date.now();
+        const days = config.followupDays || 3;
+        pool = pool.filter(p => needsFollowup(p, days, now));
+      }
+      if (statusFilter) pool = pool.filter(p => p.status === statusFilter);
+      const filtered = filter
+        ? pool.filter(p =>
+          p.name.toLowerCase().includes(filter) ||
+          p.company.toLowerCase().includes(filter) ||
+          p.email.toLowerCase().includes(filter)
+        )
+        : pool;
+
+      // Après le render, on resyncronise l'état du header checkbox
+      queueMicrotask(updateBulkBar);
+
+      wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th class="check-cell">
+            <input type="checkbox" class="header-checkbox" id="header-checkbox" onchange="toggleSelectAll(this.checked)" />
+          </th>
+          <th>Dirigeant</th>
+          <th>Entreprise</th>
+          <th>Localisation</th>
+          <th>Email</th>
+          <th>Statut ${statusFilterSelectHtml()}</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.length ? filtered.map(p => {
+          const topParts = [];
+          if (p.department) {
+            topParts.push(`<span style="font-weight:600; color:var(--white);">${escapeHTML(p.department)}</span>`);
+          }
+          if (p.arrondissement) {
+            // p.arrondissement vient d'un parseInt côté serveur (1-20), donc sûr.
+            topParts.push(`<span style="font-size:10px; color:var(--black); background:var(--accent); padding:1px 6px; border-radius:99px; margin-left:6px; font-weight:600;">${p.arrondissement === 1 ? '1er' : p.arrondissement + 'e'}</span>`);
+          }
+          const topLine = topParts.length ? topParts.join('') : '<span style="color:var(--gray-400)">—</span>';
+          const cityLine = p.city
+            ? `<div style="font-size:11px; color:var(--gray-400); margin-top:2px;">${escapeHTML(p.city)}</div>`
+            : '';
+          const checked = selectedProspectIds.has(p.id) ? 'checked' : '';
+          return `
+          <tr id="row-${p.id}">
+            <td class="check-cell">
+              <input type="checkbox" class="row-checkbox" data-pid="${p.id}" ${checked} onchange="toggleProspectSelection('${p.id}', this.checked)" />
+            </td>
+            <td>${renderProspectNameCell(p)}</td>
+            <td class="td-company">${renderCompanyCell(p)}</td>
+            <td style="font-size:13px;">${topLine}${cityLine}</td>
+            <td class="td-email">${p.email ? escapeHTML(p.email) : '<span style="color:var(--gray-400)">—</span>'}</td>
+            <td>${renderBadge(p.status)}${prospectView === 'followup' && p.sentAt ? `<div style="font-size:11px; color:var(--gray-400); margin-top:2px;">envoyé il y a ${daysSince(p.sentAt)} j</div>` : ''}</td>
+            <td>${renderActions(p)}</td>
+          </tr>
+        `;}).join('') : `<tr><td colspan="7">${emptyStateHtml(filter)}</td></tr>`}
+      </tbody>
+    </table>`;
+    }
+
+    function renderBadge(status) {
+      const map = {
+        pending: ['badge-pending', 'En attente'],
+        generating: ['badge-generating', 'Génération...'],
+        ready: ['badge-ready', 'Mail prêt'],
+        validated: ['badge-validated', 'Validé ✓'],
+        sending: ['badge-generating', 'Envoi...'],
+        sent: ['badge-sent', 'Envoyé ✓'],
+        delivered: ['badge-delivered', 'Délivré 📬'],
+        opened: ['badge-opened', 'Ouvert 👀'],
+        clicked: ['badge-clicked', 'Cliqué 🔗'],
+        bounced: ['badge-bounced', 'Bounce ⚠️'],
+        spam: ['badge-spam', 'Spam 🚫'],
+        error: ['badge-error', 'Erreur'],
+      };
+      const [cls, label] = map[status] || map.pending;
+      return `<span class="badge ${cls}"><span class="badge-dot"></span>${label}</span>`;
+    }
+
+    function renderActions(p) {
+      // IDs en UUID string → on les wrap entre quotes pour rester du JS valide
+      // dans les onclick. UUID ne contient que [0-9a-f-], donc safe sans escape.
+      if (p.status === 'pending' || p.status === 'error')
+        return `<button class="btn btn-ghost btn-sm" onclick="generateOne('${p.id}')">Générer</button>`;
+      if (p.status === 'generating')
+        return `<button class="btn btn-ghost btn-sm" disabled>...</button>`;
+      if (p.status === 'sending')
+        return `<button class="btn btn-ghost btn-sm" disabled>Envoi…</button>`;
+      const sentLike = ['sent', 'delivered', 'opened', 'clicked', 'bounced', 'spam'];
+      if (sentLike.includes(p.status))
+        return `<button class="btn btn-ghost btn-sm" onclick="openModal('${p.id}')">Voir</button>`;
+      const sendBtn = p.email
+        ? `<button class="btn btn-primary btn-sm" style="margin-left:4px" onclick="sendOne('${p.id}')">📤 Envoyer</button>`
+        : '';
+      return `<button class="btn btn-ghost btn-sm" onclick="openModal('${p.id}')">Relire</button>${sendBtn}`;
+    }
+
+    function filterTable() {
+      renderProspects(document.getElementById('filter-input').value.toLowerCase());
+    }
+
+    function updateRow(p) {
+      const row = document.getElementById('row-' + p.id);
+      if (!row) return;
+      row.cells[5].innerHTML = renderBadge(p.status);
+      row.cells[6].innerHTML = renderActions(p);
+    }
+
+    // ─── GENERATE ────────────────────────────────────────────
+    async function generateOne(id) {
+      const p = prospects.find(x => x.id === id);
+      if (!p) return;
+      // Verrou anti double-génération : un seul appel Groq par prospect à la fois.
+      if (p.status === 'generating') return;
+      const errBox = document.getElementById('prospects-alert');
+      errBox.classList.remove('show');
+
+      p.status = 'generating';
+      updateRow(p);
+
+      try {
+        const res = await authFetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prospect: p, template: buildTemplatePayload() }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Erreur API');
+        p.mail = data.mail;
+        p.status = 'ready';
+      } catch (err) {
+        p.status = 'error';
+        showAlert('prospects-alert', 'error', `Erreur pour ${p.name} : ${err.message}`);
+      }
+
+      updateRow(p);
+      updateStats();
+      saveProspects();
+      updateGenProgress();
+    }
+
+    // Retourne le sous-ensemble de prospects concerné par les actions bulk :
+    // - liste active sélectionnée → seulement ses prospects
+    // - sinon → tous les prospects
+    function getActiveProspects() {
+      if (!activeListId) return prospects;
+      const list = lists.find(l => l.id === activeListId);
+      if (!list) return prospects;
+      const ids = new Set(list.prospectIds);
+      return prospects.filter(p => ids.has(p.id));
+    }
+
+    function activeScopeLabel() {
+      if (!activeListId) return '';
+      const list = lists.find(l => l.id === activeListId);
+      return list ? ` "${list.name}"` : '';
+    }
+
+    function updateBulkButtonLabels() {
+      const scope = getActiveProspects();
+      const pendingN = scope.filter(p => p.status === 'pending' || p.status === 'error').length;
+      const readyN = scope.filter(p => (p.status === 'ready' || p.status === 'validated') && p.email && p.mail).length;
+      const totalN = scope.length;
+      const sentN = scope.filter(p => isSentLike(p.status)).length;
+      const genBtn = document.getElementById('btn-gen-all');
+      const sendBtn = document.getElementById('btn-send-all');
+      const exportBtn = document.getElementById('btn-export');
+      const cntAll = document.getElementById('export-count-all');
+      const cntSent = document.getElementById('export-count-sent');
+      if (genBtn) genBtn.innerHTML = `⚡ Générer tous les mails${pendingN ? ` (${pendingN})` : ''}`;
+      if (sendBtn) sendBtn.innerHTML = `📨 Tout envoyer${readyN ? ` (${readyN})` : ''}`;
+      if (exportBtn) exportBtn.innerHTML = `📥 Exporter CSV${totalN ? ` (${totalN})` : ''} ▾`;
+      if (cntAll) cntAll.textContent = totalN;
+      if (cntSent) cntSent.textContent = sentN;
+    }
+
+    function toggleExportMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('export-menu');
+      if (menu) menu.classList.toggle('open');
+    }
+
+    function closeExportMenu() {
+      document.getElementById('export-menu')?.classList.remove('open');
+    }
+
+    // Ferme le menu sur clic en dehors ou touche Échap
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#export-dropdown')) closeExportMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeExportMenu();
+    });
+
+    async function generateAllMails() {
+      const scope = getActiveProspects();
+      const pending = scope.filter(p => p.status === 'pending' || p.status === 'error');
+      if (!pending.length) {
+        showAlert('prospects-alert', 'error', `Aucun prospect à générer${activeScopeLabel()}.`);
+        return;
+      }
+
+      if (!config.paddleName) {
+        showAlert('prospects-alert', 'error', 'Remplis la configuration (nom de la salle, accroche) avant de générer.');
+        return;
+      }
+
+      document.getElementById('btn-gen-all').disabled = true;
+      document.getElementById('gen-progress-label').textContent = `0 / ${pending.length} en cours...`;
+
+      for (let i = 0; i < pending.length; i++) {
+        await generateOne(pending[i].id);
+        document.getElementById('gen-progress-label').textContent = `${i + 1} / ${pending.length} générés`;
+        await new Promise(r => setTimeout(r, 500));
+      }
+
+      document.getElementById('btn-gen-all').disabled = false;
+      document.getElementById('gen-progress-label').textContent = 'Terminé ✓';
+    }
+
+    function updateGenProgress() {
+      const done = prospects.filter(p => p.status === 'ready' || p.status === 'validated' || isSentLike(p.status)).length;
+      document.getElementById('gen-progress-label').textContent = prospects.length ? `${done} / ${prospects.length} générés` : '';
+    }
+
+    // ─── SEND ────────────────────────────────────────────────
+    function splitMail(text) {
+      const lines = (text || '').split('\n');
+      const objLine = lines.find(l => l.toLowerCase().startsWith('objet:'));
+      const subject = objLine ? objLine.replace(/^objet:\s*/i, '').trim() : '(sans objet)';
+      const body = lines.filter(l => !l.toLowerCase().startsWith('objet:')).join('\n').trim();
+      return { subject, body };
+    }
+
+    async function sendOne(id) {
+      const p = prospects.find(x => x.id === id);
+      if (!p) return;
+      // Verrou anti double-envoi : si un envoi est déjà en cours pour ce prospect
+      // (autre fenêtre, double-clic rapide, bulk concurrent), on bail.
+      if (p.status === 'sending') return;
+      if (!p.email) {
+        showAlert('prospects-alert', 'error', `Pas d'email pour ${p.name}.`);
+        return;
+      }
+      if (!p.mail) {
+        showAlert('prospects-alert', 'error', `Aucun mail généré pour ${p.name}.`);
+        return;
+      }
+
+      const previousStatus = p.status;
+      p.status = 'sending';
+      updateRow(p);
+
+      const { subject, body } = splitMail(p.mail);
+
+      try {
+        const res = await authFetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: p.email, subject, body }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Erreur envoi');
+        p.status = 'sent';
+        p.messageId = data.messageId || null;
+        showAlert('prospects-alert', 'success', `Mail envoyé à ${p.name} ✓`);
+      } catch (err) {
+        p.status = previousStatus;
+        showAlert('prospects-alert', 'error', `Erreur envoi ${p.name} : ${err.message}`);
+      }
+      updateRow(p);
+      updateStats();
+      saveProspects();
+    }
+
+    async function sendAllReady() {
+      const scope = getActiveProspects();
+      const candidates = scope.filter(p =>
+        (p.status === 'ready' || p.status === 'validated') && p.email && p.mail
+      );
+      if (!candidates.length) {
+        showAlert('prospects-alert', 'error', `Aucun mail prêt avec une adresse email${activeScopeLabel()}.`);
+        return;
+      }
+
+      const btn = document.getElementById('btn-send-all');
+      btn.disabled = true;
+
+      let sent = 0, failed = 0;
+      for (let i = 0; i < candidates.length; i++) {
+        const p = candidates[i];
+        btn.textContent = `📨 Envoi ${i + 1}/${candidates.length}…`;
+        const previousStatus = p.status;
+        p.status = 'sending';
+        updateRow(p);
+
+        const { subject, body } = splitMail(p.mail);
+        try {
+          const res = await authFetch('/api/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ to: p.email, subject, body }),
+          });
+          const data = await res.json();
+          if (!res.ok || data.error) throw new Error(data.error || 'Erreur envoi');
+          p.status = 'sent';
+          p.messageId = data.messageId || null;
+          sent++;
+        } catch {
+          p.status = previousStatus;
+          failed++;
+        }
+        updateRow(p);
+        saveProspects();
+        await new Promise(r => setTimeout(r, 400));
+      }
+
+      updateStats();
+      btn.disabled = false;
+      btn.textContent = '📨 Tout envoyer';
+
+      const msg = failed > 0
+        ? `${sent} envoyé${sent > 1 ? 's' : ''}, ${failed} échec${failed > 1 ? 's' : ''}.`
+        : `${sent} mail${sent > 1 ? 's' : ''} envoyé${sent > 1 ? 's' : ''} ✓`;
+      showAlert('prospects-alert', failed > 0 ? 'error' : 'success', msg);
+    }
+
+    // Statuts considérés comme "mail parti" — utilisés pour les comptages globaux
+    const SENT_LIKE_STATUSES = ['sent', 'delivered', 'opened', 'clicked', 'bounced', 'spam'];
+    const isSentLike = s => SENT_LIKE_STATUSES.includes(s);
+
+    // Met à jour la carte "Campagne en cours" (Vue 3 — agrégat)
+    function updateCampaignStats() {
+      const box = document.getElementById('campaign-stats');
+      if (!box) return;
+      const sent = prospects.filter(p => isSentLike(p.status));
+
+      // Hiérarchie cumulative : un mail "cliqué" compte aussi dans "ouvert" et "délivré"
+      // (clicked reste dans le mapping backend même si la tuile UI a été retirée).
+      const delivered = sent.filter(p => p.status !== 'sent').length;
+      const opened    = sent.filter(p => p.status === 'opened' || p.status === 'clicked').length;
+      const bounced   = sent.filter(p => p.status === 'bounced').length;
+      const spam      = sent.filter(p => p.status === 'spam').length;
+
+      const pct = (n, base) => base ? ` (${Math.round((n / base) * 100)}%)` : '';
+
+      document.getElementById('cs-sent').textContent = sent.length;
+      document.getElementById('cs-delivered').textContent = delivered;
+      document.getElementById('cs-opened').textContent = opened;
+      document.getElementById('cs-bounced').textContent = bounced;
+      document.getElementById('cs-spam').textContent = spam;
+
+      document.getElementById('cs-delivered-pct').textContent = pct(delivered, sent.length);
+      document.getElementById('cs-opened-pct').textContent = pct(opened, delivered || sent.length);
+
+      box.style.display = '';
+    }
+
+    // ─── REFRESH STATS RESEND ─────────────────────────────────
+    // Mappe les `last_event` Resend vers nos statuts internes.
+    const RESEND_STATUS_MAP = {
+      sent: 'sent',
+      delivered: 'delivered',
+      delivery_delayed: 'sent',
+      opened: 'opened',
+      clicked: 'clicked',
+      bounced: 'bounced',
+      complained: 'spam',
+    };
+
+    async function refreshMailStats() {
+      const tracked = prospects.filter(p => p.messageId);
+      if (!tracked.length) {
+        showAlert('prospects-alert', 'info', 'Aucun mail envoyé via Resend à suivre pour le moment.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-refresh-stats');
+      btn.disabled = true;
+      const originalLabel = btn.textContent;
+      btn.textContent = '🔄 Mise à jour…';
+
+      try {
+        const res = await authFetch('/api/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messageIds: tracked.map(p => p.messageId) }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Erreur API');
+
+        let updated = 0;
+        for (const p of tracked) {
+          const s = data.statuses?.[p.messageId];
+          if (!s) continue;
+          if (s.created_at) p.sentAt = s.created_at;
+          if (!s.last_event) continue;
+          const mapped = RESEND_STATUS_MAP[s.last_event];
+          if (mapped && mapped !== p.status) {
+            p.status = mapped;
+            updated++;
+          }
+        }
+        prospects.forEach(updateRow);
+        renderProspects(document.getElementById('filter-input').value.toLowerCase());
+        updateStats();
+        saveProspects();
+        showAlert(
+          'prospects-alert',
+          updated > 0 ? 'success' : 'info',
+          updated > 0
+            ? `${updated} statut${updated > 1 ? 's' : ''} mis à jour.`
+            : 'Aucun changement depuis la dernière vérification.'
+        );
+      } catch (err) {
+        showAlert('prospects-alert', 'error', 'Erreur stats : ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+      }
+    }
+
+    async function validateAndSendMail() {
+      const p = prospects.find(x => x.id === modalIdx);
+      if (!p) return;
+      // Verrou anti double-envoi : même prospect, même clic deux fois.
+      if (p.status === 'sending') return;
+      p.mail = document.getElementById('modal-text').value;
+
+      if (!p.email) {
+        showAlert('modal-alert', 'error', 'Pas d\'adresse email pour ce prospect.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-send-mail');
+      btn.disabled = true;
+      btn.textContent = 'Envoi…';
+
+      // Marque le prospect comme en cours d'envoi : ça bloque tout autre
+      // chemin (sendOne, sendAllReady) qui voudrait le réémettre en parallèle.
+      const previousStatus = p.status;
+      p.status = 'sending';
+      updateRow(p);
+
+      const { subject, body } = splitMail(p.mail);
+
+      try {
+        const res = await authFetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: p.email, subject, body }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Erreur envoi');
+        p.status = 'sent';
+        p.messageId = data.messageId || null;
+        updateRow(p);
+        updateStats();
+        saveProspects();
+        closeModal();
+      } catch (err) {
+        p.status = previousStatus;
+        updateRow(p);
+        showAlert('modal-alert', 'error', 'Erreur : ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '📤 Envoyer';
+      }
+    }
+
+    // ─── IMPORT CSV ──────────────────────────────────────────
+    // ─── MODAL ───────────────────────────────────────────────
+    function openModal(id) {
+      modalIdx = id;
+      const p = prospects.find(x => x.id === id);
+      document.getElementById('modal-name').textContent = p.name;
+      document.getElementById('modal-info').textContent = `${p.company}${p.title ? ' · ' + p.title : ''}${p.email ? ' · ' + p.email : ''}`;
+      document.getElementById('modal-text').value = p.mail;
+      document.getElementById('modal-alert').classList.remove('show');
+      document.getElementById('mail-modal').classList.add('open');
+    }
+
+    function closeModal() {
+      const p = prospects.find(x => x.id === modalIdx);
+      if (p) { p.mail = document.getElementById('modal-text').value; saveProspects(); }
+      document.getElementById('mail-modal').classList.remove('open');
+      modalIdx = null;
+    }
+
+    async function regenMail() {
+      const p = prospects.find(x => x.id === modalIdx);
+      const errBox = document.getElementById('modal-alert');
+      errBox.classList.remove('show');
+      document.getElementById('btn-regen').disabled = true;
+      document.getElementById('modal-text').value = 'Génération en cours...';
+
+      try {
+        const res = await authFetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prospect: p, template: buildTemplatePayload() }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Erreur API');
+        p.mail = data.mail;
+        document.getElementById('modal-text').value = data.mail;
+      } catch (err) {
+        showAlert('modal-alert', 'error', 'Erreur : ' + err.message);
+        document.getElementById('modal-text').value = p.mail;
+      }
+      document.getElementById('btn-regen').disabled = false;
+    }
+
+    function validateMail() {
+      const p = prospects.find(x => x.id === modalIdx);
+      if (p) {
+        p.mail = document.getElementById('modal-text').value;
+        p.status = 'validated';
+        updateRow(p);
+        updateStats();
+        saveProspects();
+      }
+      closeModal();
+    }
+
+    function validateAndOpenGmail() {
+      const p = prospects.find(x => x.id === modalIdx);
+      if (!p) return;
+      p.mail = document.getElementById('modal-text').value;
+      p.status = 'validated';
+      updateRow(p);
+      updateStats();
+      saveProspects();
+
+      // Extraire objet et corps
+      const lines = p.mail.split('\n');
+      const objLine = lines.find(l => l.toLowerCase().startsWith('objet:'));
+      const subject = objLine ? objLine.replace(/^objet:\s*/i, '').trim() : '';
+      const body = lines.filter(l => !l.toLowerCase().startsWith('objet:')).join('\n').trim();
+
+      // Construire le lien mailto
+      const to = p.email || '';
+      const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(mailto, '_blank');
+      closeModal();
+    }
+
+    // ─── EXPORT ──────────────────────────────────────────────
+    // L'export reprend la liste active de la page Prospects (activeListId).
+    function exportCSV(mode) {
+      // L'export suit la vue active : en « À relancer », on n'exporte que la liste
+      // affichée (même filtre que la table) ; en « Tous », comportement habituel.
+      const scope = prospectView === 'followup' ? getFollowupProspects() : getActiveProspects();
+      // 'all' = toute la liste (avec ou sans mail généré)
+      // 'validated' = seulement les prospects dont le mail a été envoyé
+      const toExport = mode === 'validated'
+        ? scope.filter(p => isSentLike(p.status))
+        : scope;
+
+      if (!toExport.length) {
+        alert(`Aucun prospect à exporter${activeScopeLabel()}.`);
+        return;
+      }
+
+      const rows = [['Nom', 'Entreprise', 'Email', 'Titre', 'Site web', 'LinkedIn', 'Département', 'Arrondissement', 'Code postal', 'Statut', 'Objet', 'Corps du mail']];
+      toExport.forEach(p => {
+        const mail = p.mail || '';
+        const lines = mail.split('\n');
+        const obj = lines.find(l => l.toLowerCase().startsWith('objet:'))?.replace(/^objet:\s*/i, '').trim() || '';
+        const body = lines.filter(l => !l.toLowerCase().startsWith('objet:')).join('\n').trim();
+        const arr = p.arrondissement ? (p.arrondissement === 1 ? '1er' : p.arrondissement + 'e') : '';
+        rows.push([p.name, p.company, p.email, p.title, p.website || '', p.linkedin || '', p.department || '', arr, p.postalCode || '', p.status, obj, body]);
+      });
+
+      const csv = rows.map(r => r.map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+      const list = activeListId ? lists.find(l => l.id === activeListId) : null;
+      const listSuffix = list ? `_${list.name.replace(/[^a-z0-9-]+/gi, '-').toLowerCase()}` : '';
+      const viewSuffix = prospectView === 'followup' ? '_a-relancer' : '';
+      a.download = `prospection_paddle${listSuffix}${viewSuffix}_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+    }
+
+    // ─── UTILS ───────────────────────────────────────────────
+    function showAlert(id, type, msg) {
+      const el = document.getElementById(id);
+      el.className = `alert alert-${type} show`;
+      el.textContent = msg;
+    }
+
+    function setProgress(prefix, pct, label) {
+      const prog = document.getElementById(`${prefix}-progress`);
+      const bar = document.getElementById(`${prefix}-progress-bar`);
+      const lbl = document.getElementById(`${prefix}-progress-label`);
+      if (!prog) return;
+      prog.style.display = pct > 0 ? 'block' : 'none';
+      bar.style.width = pct + '%';
+      lbl.textContent = label;
+    }
+
+    function updateStats() {
+      const total = prospects.length;
+      const ready = prospects.filter(p => p.status === 'ready' || p.status === 'validated' || isSentLike(p.status)).length;
+      const sent = prospects.filter(p => isSentLike(p.status)).length;
+      const pending = prospects.filter(p => p.status === 'pending').length;
+      document.getElementById('st-total').textContent = total;
+      document.getElementById('st-ready').textContent = ready;
+      document.getElementById('st-validated').textContent = sent;
+      document.getElementById('st-pending').textContent = pending;
+      updateCampaignStats();
+      updateBulkButtonLabels();
+    }
+
+    function updateNavBadge() {
+      const badge = document.getElementById('nav-badge');
+      if (prospects.length) {
+        badge.textContent = prospects.length;
+        badge.style.display = 'inline-flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    // Même pattern PUT-tout avec mutex que saveLists().
+    let _prospectsSyncing = false;
+    let _prospectsDirty = false;
+    async function saveProspects() {
+      _prospectsDirty = true;
+      if (_prospectsSyncing) return;
+      _prospectsSyncing = true;
+      try {
+        while (_prospectsDirty) {
+          _prospectsDirty = false;
+          const snapshot = prospects;
+          const res = await authFetch('/api/prospects', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(snapshot),
+          });
+          if (!res.ok) throw new Error('Sauvegarde prospects échouée');
+        }
+      } catch (e) {
+        console.error('saveProspects:', e);
+      } finally {
+        _prospectsSyncing = false;
+      }
+    }
+
+    async function loadProspects() {
+      try {
+        const res = await authFetch('/api/prospects');
+        if (!res.ok) throw new Error('Erreur chargement prospects');
+        const data = await res.json();
+        prospects = data.prospects || [];
+      } catch (e) {
+        console.error('loadProspects:', e);
+        prospects = [];
+      }
+    }
+
+    // ─── APOLLO CREDITS ──────────────────────────────────────
+    // Rafraîchit la jauge depuis /api/credits ou depuis l'objet `usage`
+    // retourné par /api/search (évite un round-trip après chaque recherche).
+    function renderCredits(u) {
+      if (!u) return;
+      const dayEl = document.getElementById('credit-day');
+      const monthEl = document.getElementById('credit-month');
+      const dayBar = document.getElementById('credit-day-bar');
+      const monthBar = document.getElementById('credit-month-bar');
+      if (!dayEl) return;
+
+      dayEl.textContent = u.today;
+      monthEl.textContent = u.month;
+      document.getElementById('credit-day-limit').textContent = u.dayLimit;
+      document.getElementById('credit-month-limit').textContent = u.monthLimit;
+
+      const dayPct = Math.min(100, (u.today / u.dayLimit) * 100);
+      const monthPct = Math.min(100, (u.month / u.monthLimit) * 100);
+      dayBar.style.width = dayPct + '%';
+      monthBar.style.width = monthPct + '%';
+
+      // Jour: soft (dépassable) → bleu/orange/rayé si > 25.
+      dayBar.className = 'credit-bar-fill' + (u.today >= u.dayLimit ? ' over' : '');
+      // Mois: dur (bloquant à 750) → vert / orange dès 80% / rouge dès 100%.
+      const monthRatio = u.month / u.monthLimit;
+      monthBar.className = 'credit-bar-fill'
+        + (monthRatio >= 1 ? ' bad' : monthRatio >= 0.8 ? ' warn' : '');
+    }
+
+    async function loadCredits() {
+      try {
+        const res = await authFetch('/api/credits');
+        if (!res.ok) return;
+        renderCredits(await res.json());
+      } catch (e) {
+        console.error('loadCredits:', e);
+      }
+    }
+
+
+    // ─── AUTH ────────────────────────────────────────────────
+    async function doLogin() {
+      const pwd = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+      errEl.classList.remove('show');
+      if (!pwd) return;
+      try {
+        const res = await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pwd }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setToken(pwd); // sert de Bearer pour les appels API suivants
+          document.getElementById('login-overlay').classList.add('hidden');
+          document.getElementById('login-password').value = '';
+          // Charge prospects + listes maintenant qu'on est authentifié.
+          await Promise.all([loadProspects(), loadLists(), loadCredits()]);
+          updateStats();
+          updateNavBadge();
+          renderListBar();
+          renderProspects();
+        } else {
+          clearToken();
+          errEl.textContent = 'Mot de passe incorrect.';
+          errEl.classList.add('show');
+          document.getElementById('login-password').value = '';
+        }
+      } catch {
+        errEl.textContent = 'Erreur réseau.';
+        errEl.classList.add('show');
+      }
+    }
+
+    // ─── INIT ────────────────────────────────────────────────
+    // Les préfs UI (config, arrondissements, régions, zone, preset industry,
+    // active list) restent en localStorage : c'est par-appareil et instantané.
+    // Les données métier (prospects, lists) vivent en Postgres → besoin
+    // d'être authentifié pour les charger, donc on gate sur le token.
+    async function init() {
+      loadConfig();
+      renderArrChips();
+      renderRegionChips();
+      initZoneMode();
+      initIndustryPreset();
+      renderSignaturePreview();
+
+      if (getToken()) {
+        document.getElementById('login-overlay').classList.add('hidden');
+        await Promise.all([loadProspects(), loadLists(), loadCredits()]);
+      } else {
+        showLoginOverlay();
+      }
+
+      updateStats();
+      updateNavBadge();
+      renderListBar();
+    }
+
+    init();
+
+  </script>
+</body>
+
+</html>

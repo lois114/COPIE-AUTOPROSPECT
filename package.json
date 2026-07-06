@@ -1,0 +1,20 @@
+{
+  "name": "paddle-prospecting",
+  "version": "1.0.0",
+  "description": "Outil de prospection Padel B2B — Apollo + Groq",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:auth": "node scripts/auth-test.mjs",
+    "test:xss": "node scripts/xss-test.mjs",
+    "test:dedup": "node scripts/dedup-test.mjs",
+    "test:rgpd": "node scripts/rgpd-test.mjs",
+    "test:polish": "node scripts/polish-test.mjs",
+    "test": "npm run test:auth && npm run test:xss && npm run test:dedup && npm run test:rgpd && npm run test:polish"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "nodemailer": "^8.0.7",
+    "resend": "^4.0.0"
+  }
+}
